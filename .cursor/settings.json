@@ -1,0 +1,10 @@
+{
+  "plugins": {
+    "redis-development": {
+      "enabled": true
+    },
+    "browserstack": {
+      "enabled": true
+    }
+  }
+}

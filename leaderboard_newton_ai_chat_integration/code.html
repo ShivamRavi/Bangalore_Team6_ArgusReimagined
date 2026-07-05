@@ -1,0 +1,578 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EuroSchool Leaderboard - Dashboard</title>
+<!-- Google Fonts: Hanken Grotesk -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c3c7cd",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#dfe2e9",
+                        "secondary-container": "#e1e0f8",
+                        "on-secondary-fixed-variant": "#444558",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#181c21",
+                        "on-secondary-container": "#626377",
+                        "primary-fixed-dim": "#c2c1ff",
+                        "tertiary-container": "#686c72",
+                        "surface-container-highest": "#e2dfff",
+                        "on-tertiary-container": "#ebeef5",
+                        "surface-container-low": "#f5f2ff",
+                        "on-background": "#191931",
+                        "surface-container": "#efecff",
+                        "on-secondary-fixed": "#191a2b",
+                        "tertiary": "#50545a",
+                        "inverse-surface": "#2e2e47",
+                        "inverse-primary": "#c2c1ff",
+                        "surface-variant": "#e2dfff",
+                        "on-surface-variant": "#464554",
+                        "secondary-fixed": "#e1e0f8",
+                        "surface": "#fcf8ff",
+                        "secondary-fixed-dim": "#c5c4dc",
+                        "on-tertiary-fixed-variant": "#43474d",
+                        "background": "#fcf8ff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c7c4d7",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e2dfff",
+                        "primary": "#443ec7",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#362dba",
+                        "on-surface": "#191931",
+                        "surface-tint": "#4f4ad3",
+                        "surface-dim": "#d9d7f7",
+                        "outline": "#777586",
+                        "surface-bright": "#fcf8ff",
+                        "primary-container": "#5d59e1",
+                        "on-primary-fixed": "#0d006a",
+                        "on-primary-container": "#efecff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f2efff",
+                        "surface-container-high": "#e8e5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "gutter-grid": "1.5rem",
+                        "padding-card": "1.5rem",
+                        "stack-lg": "2rem",
+                        "margin-page": "2rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Hanken Grotesk"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .podium-shadow {
+            box-shadow: 0 4px 20px rgba(29, 29, 53, 0.05);
+        }
+        /* Custom sidebar scrollbar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background-color: #c7c4d7;
+            border-radius: 4px;
+        }
+        /* Dashboard Layout Helper */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            grid-template-rows: 72px 1fr;
+            min-height: 100vh;
+        }
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 80px 1fr;
+            }
+            .sidebar-text { display: none; }
+        }
+        [data-tab-content] {
+            display: none;
+        }
+        [data-tab-content].active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-background font-body-md min-h-screen overflow-x-hidden" data-mode="connect" style="font-family: &quot;Nunito Sans&quot;, sans-serif;">
+<div class="dashboard-layout">
+<!-- Persistent Left Sidebar -->
+<aside class="row-span-2 border-r border-outline-variant flex flex-col z-50 bg-white">
+<div class="h-[72px] flex items-center px-6 border-b border-outline-variant justify-center">
+<div class="flex items-center gap-2">
+<img alt="EuroSchool Logo" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtC1vb1u9TB5rUC4SCROKwWb13eAQ5kl-n9aAhY2Bsv3cT-8UfQeIpQnUnazIUEkpCwlRzwqnmFV8yywT8A1ilUy_xAuf1era0edBtimHHxIX4iaPUuYS9g0uUKVe8szxm4tdZYkHAFa_tAbJgWtA1B0Uap0tHU08fEtmbxYdL8xNChZYbviezeTsfhayRzyE2QJVxQlIU5lIC7dwXfC8eFvNOgOwJJ96Exg_9qSRQ4t1lP8wR0BHXYG92T2VjtrK2BSVBFndYISPQ">
+</div>
+</div>
+<nav class="flex-1 py-6 px-3 space-y-1 sidebar-scroll overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-lg sidebar-text">&nbsp; Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">home_work</span>
+<span class="font-label-lg sidebar-text">Home Extension</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-lg sidebar-text">Message Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-lg sidebar-text">Class Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-lg sidebar-text">Curriculum</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-lg sidebar-text">Courses</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-lg sidebar-text">Calendar</span>
+</a>
+<!-- Active State: Performance -->
+<a class="flex items-center justify-between px-3 py-3 bg-secondary-container text-on-secondary-container rounded-lg transition-colors group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">leaderboard</span>
+<span class="font-label-lg sidebar-text">Performance</span>
+</div>
+<span class="material-symbols-outlined text-xs sidebar-text">keyboard_arrow_down</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-secondary hover:bg-surface-container-low rounded-lg transition-colors group" href="#">
+<img alt="Fees" class="w-6 h-6 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtq8djSskJkcTV72QhClDoyn_Rs74QSiw5N1XFfunyiWe39DQLUsMH5AMVlWL9GBoTnPQPXbXqWcUuW03T2BL0sbQP4GywCgi34zHefBdMxPBoKYnxLbl7ea1HXqFxigYuTiynqgK0haA043PA0aN1nVtFgqATjX1DZNOzbdd0xauQB4MfPdUb61CWRiXLSJ-ao43lva-2CsSGYQavams59K-m_CMKngT0aQXVYYi_O7oTRbFQRKUmR9n-Y">
+<span class="font-label-lg sidebar-text">Fees</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<div class="bg-surface-container px-3 py-2 rounded-lg flex items-center gap-3"><img alt="User" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvYq5CdpiqJVI-ZSG49Sah8sw4SQ7ntf_eJ3SQXqMjJhN1NczdBHz5RKuCevKalt6luP_9jmycRUEhjUnz0e6XRUBxOBsUJ7TGCgrb3-vHfhPyyPEy5tzMikHCcgY5-G7sSZhCXeduuZLxb08tTosr4cVvh-ahdC8W9-09vafDWTkEEV07iiuLIe54mXCxns0lK_MZwa47t5m61_91LYasg77e6e1bqBm8n5cmbDmMIPFIqCkuMTbJLz9ZE"><div class="sidebar-text"><p class="text-xs font-bold truncate">Jane Doe</p><p class="text-[10px] text-outline truncate">Grade 12 - A</p></div></div>
+</div>
+</aside>
+<!-- Top Header Bar -->
+<header class="border-b border-outline-variant flex items-center justify-between px-8 sticky top-0 z-40 bg-white"><div class="flex items-center gap-6 flex-1"><div class="max-w-md w-full relative bg-surface-container-low"><div class="relative w-full"><span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline uppercase text-[10px]">search</span><input class="w-full pl-12 pr-4 py-2.5 bg-surface-container border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="essential search" type="text"></div></div></div><div class="flex items-center gap-8"><div class="flex items-center gap-6"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-low"><img alt="Mercury" class="w-5 h-5 object-contain" src="https://png.pngtree.com/png-clipart/20240903/original/pngtree-mercury-planet-on-transparent-background-png-image_15928464.png"><span class="font-bold uppercase text-[10px]">Current league<br>Mercury League</span></div><div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant bg-surface-container-low"><img alt="Euro" class="w-5 h-5 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7BurriVHC4hqxybrTWHZUpk6TMkt1Nq5nmZFbePMDPcrTTvF14XhiFV961OzsUh2eNgq8i1qBAUzSChngl0nIwL_LSOgE0xBRR2Up_9iU9W75MJ6el3pRdBJKE81f6mT3w78yEgh3VwrKqBhNnmhVy1OaUUFA8KxXwhRnHoJ_UDq20Yg_DUA6XjQHfE7-memhR0AMspg9GRmIIqKqlBcmx9nq_dw7OYJ3B7ZyeYlgh9b6FCNS-rLhVsIE9nu6TZjxWaY"><span class="text-xs font-bold">2,450 Euros</span></div></div><div class="flex items-center gap-4"><div class="flex items-center gap-3"><button class="p-2.5 text-outline hover:bg-surface-container rounded-xl transition-colors"><span class="material-symbols-outlined">help_outline</span></button><div class="relative"><button class="p-2.5 text-outline hover:bg-surface-container rounded-xl transition-colors"><span class="material-symbols-outlined">notifications</span></button><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span></div><div class="h-8 w-[1px] bg-outline-variant mx-2"></div></div><div class="flex items-center gap-3 pr-2 cursor-pointer group"><div class="text-right"><p class="text-sm font-bold leading-none">Jane Doe</p><p class="text-[10px] text-outline mt-1">Grade 12 - A</p></div><div class="w-10 h-10 rounded-xl overflow-hidden border border-outline-variant group-hover:border-primary transition-colors"><img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvYq5CdpiqJVI-ZSG49Sah8sw4SQ7ntf_eJ3SQXqMjJhN1NczdBHz5RKuCevKalt6luP_9jmycRUEhjUnz0e6XRUBxOBsUJ7TGCgrb3-vHfhPyyPEy5tzMikHCcgY5-G7sSZhCXeduuZLxb08tTosr4cVvh-ahdC8W9-09vafDWTkEEV07iiuLIe54mXCxns0lK_MZwa47t5m61_91LYasg77e6e1bqBm8n5cmbDmMIPFIqCkuMTbJLz9ZE"></div></div></div></div></header>
+<!-- Main Content Area -->
+<main class="bg-surface p-8 overflow-y-auto">
+<div class="max-w-5xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-background">Performance Leaderboard</h2>
+<p class="text-on-surface-variant">Recognizing top performers across the EuroSchool community</p>
+</div>
+<div class="flex gap-2"><button class="w-10 h-10 flex items-center justify-center bg-white border border-outline-variant rounded-full text-primary hover:bg-surface-container-low transition-colors shadow-sm" onclick="document.getElementById('rank-info-modal').classList.remove('hidden')" title="Rank Information"><span class="material-symbols-outlined">info</span></button>
+</div>
+</div>
+<!-- Tab Switcher -->
+<div class="bg-surface-container-low p-1.5 rounded-xl flex gap-1 mb-8 w-fit border border-outline-variant">
+<button class="tab-btn px-6 py-2 rounded-lg text-sm font-bold transition-all text-outline" data-tab="my-grade" onclick="switchTab('my-grade')">My Grade</button>
+<button class="tab-btn px-6 py-2 rounded-lg text-sm font-bold transition-all hover:text-on-surface bg-white text-primary shadow-sm" data-tab="house-leads" onclick="switchTab('house-leads')">House Leads</button>
+</div>
+<!-- TAB: My Grade -->
+<div class="" data-tab-content="" id="tab-my-grade">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Podium -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<section class="bg-white rounded-2xl p-8 border border-outline-variant shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-9xl">emoji_events</span>
+</div>
+<div class="relative pt-12 pb-8 flex items-end justify-center gap-6">
+<!-- 2nd Place -->
+<div class="flex flex-col items-center flex-1">
+<div class="relative mb-3">
+<div class="w-24 h-24 rounded-full border-4 border-surface-variant overflow-hidden podium-shadow bg-surface-container">
+<img alt="Arjun S." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBasa-XxwKaKpn6Fsxn0EemjSQro9tZo9nbh9qBj2bGd28vvlzOzMM6p2IJp2DZlDNNrfpWWtQtKqdyW9EHCLhzbC79RMWWpcG77ytEZcRGHCPhfW0x_V7o_8awvSbzGxZzvjGgnk1zaZ7T-qE1N1EfVzdKDQ8swZvGdp6SStTvAFYfHnxascBO-zXQEfaYyz5uOO-RHwZkcW3UL7vmNzQ4I0RpMU7VGAb_2GeJuEVdXaQTgGRH52qTOBZj1mGoJ0EP1HiPJc29xevG">
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-surface-variant text-on-surface-variant font-bold rounded-full w-8 h-8 flex items-center justify-center text-sm shadow-sm ring-4 ring-white">2</div>
+</div>
+<p class="font-label-lg text-label-lg text-center font-bold">Arjun S.</p>
+<p class="font-label-md text-label-md text-primary font-bold">1,840 pts</p>
+</div>
+<!-- 1st Place -->
+<div class="flex flex-col items-center flex-1 z-10 -translate-y-6">
+<div class="relative mb-3">
+<div class="w-32 h-32 rounded-full border-4 border-primary overflow-hidden podium-shadow relative ring-8 ring-primary/5" style="transform: translateY(0px); transition: transform 0.2s ease-out;">
+<img alt="Ananya D A" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMVurfK94JMW0rHMN-2kAAlWQ2CkR27fDR8BO87b73FNmRE8YEJFYiSwOo8jrcnSlwiFW0smIJZGefT76tInlS7o-gcV488zhplkbky4GBDinD9ar0kYq30nSyDaTGH16w-bEMMH7YlPpndiI3V5cvTocSs1Efr2BYZzzM7G31gmfgpXlBUNDu1-C5TalwTrj01U22o-ovDVKCjnip6YJxRW_sO0U7cCKyO9Wrgt1LsQ-o8A5SrF4JK6Sx1dmZOn9_BX7vKhPxaMAd">
+</div>
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary text-white font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg ring-4 ring-white shadow-md">1</div>
+<div class="absolute -top-10 left-1/2 -translate-x-1/2">
+<span class="material-symbols-outlined text-yellow-500 text-5xl" style="font-variation-settings: &quot;FILL&quot; 1;">workspace_premium</span>
+</div>
+</div>
+<p class="font-headline-sm text-headline-sm text-center font-bold text-primary">Ananya D A</p>
+<p class="font-label-lg text-label-lg text-primary-container font-extrabold bg-primary-container/10 px-4 py-1 rounded-full mt-1">2,150 pts</p>
+</div>
+<!-- 3rd Place -->
+<div class="flex flex-col items-center flex-1">
+<div class="relative mb-3">
+<div class="w-24 h-24 rounded-full border-4 border-[#CD7F32]/40 overflow-hidden podium-shadow bg-surface-container" style="transform: translateY(0px); transition: transform 0.2s ease-out;">
+<img alt="Vihaan K." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDltDVZ5Sptcao0N_Y2-Bec2rsqn6ORpcArIRDgw5-ygClLSDJ2Oqp6MiZpB7VO8ygr4Vqtlpk4AecCj6ICUTJUmufn_gBVqbQpHyN2lUlYzbKpQm11wU_lN2VQGnYwmWqatgdx2NFtXs3w9tFDBK4KQCdsyPX3qMNphMpS1fUkkdX-XNQPQ12ESGH8EX8sxORZPNSbZ_gaFmubor2ekxpTOYt7nKLI3NQ6vEoxoEhrXy0uz7NT9vQSq7a-2FyBraaqNKoKK5MKK0C8">
+</div>
+<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#CD7F32] text-white font-bold rounded-full w-8 h-8 flex items-center justify-center text-sm shadow-sm ring-4 ring-white">3</div>
+</div>
+<p class="font-label-lg text-label-lg text-center font-bold">Vihaan K.</p>
+<p class="font-label-md text-label-md text-primary font-bold">1,720 pts</p>
+</div>
+</div>
+</section>
+<!-- User Context Card -->
+<div class="bg-primary-container text-on-primary-container rounded-2xl p-6 flex items-center justify-between shadow-md border border-primary/20 relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center font-bold text-2xl border border-white/30 backdrop-blur-sm">1</div>
+<div>
+<h3 class="font-headline-sm leading-tight">You're at the top!</h3>
+<p class="text-sm opacity-90 font-medium">Keep up the great work, Ananya. You're leading by 310 points.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-4xl relative z-10 opacity-80">auto_awesome</span>
+</div>
+</div>
+<!-- Right Column: Rank List -->
+<div class="lg:col-span-7">
+<section class="bg-white rounded-2xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="px-6 py-5 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">public</span>
+<h2 class="font-label-lg text-secondary uppercase tracking-wider">Grade Ranking</h2>
+</div>
+<select class="text-xs text-on-surface-variant font-semibold uppercase bg-surface-container-low border border-outline-variant rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer transition-all">
+<option value="mercury">Mercury</option>
+<option value="venus">Venus</option>
+<option value="earth">Earth</option>
+<option value="mars">Mars</option>
+<option value="jupiter">Jupiter</option>
+<option value="saturn">Saturn</option>
+<option value="uranus">Uranus</option>
+<option value="neptune">Neptune</option>
+<option value="pluto">Pluto</option>
+</select>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Rank 4 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-container-low transition-colors group cursor-pointer">
+<span class="w-8 text-center font-bold text-outline group-hover:text-primary">4</span>
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container border border-outline-variant">
+<img alt="Ishaan Mehra" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWBD6PttPK9MG4gWA0uxII-kHnUYqBVEzMBhkBF6TLQoSiuFu8HkgWZNmVDG1OuUgm_kAPECsUDuKW7tn5QLfvvmqtDiUcBno4Zct_lHraYBncsBGq3jKOzdBpxNvLSUoMxr8D_Nk5-b4oQRc4whMHjfEQHjGeuwFcJznF6zi7a4McdxJZ3Op06uU_kGYIJ6C6D7poXp1g48g3yIZaHH_gFGAeRwsTdjw5R6fwEOMFLXqKiIqb3rypjsELFZF3fkXEHuemXFHBAhdo">
+</div>
+<div class="flex-1">
+<p class="font-label-lg text-on-surface font-semibold">Ishaan Mehra</p>
+<p class="text-xs text-outline">Grade 12-B • Science</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-primary font-bold">1,680</p>
+<p class="text-[10px] text-green-600 font-bold">pts</p>
+</div>
+</div>
+<!-- Rank 5 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-container-low transition-colors group cursor-pointer">
+<span class="w-8 text-center font-bold text-outline group-hover:text-primary">5</span>
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container border border-outline-variant">
+<img alt="Zara Sheikh" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJAWqjq4prlJ5dc_ep4l7JeomZoBNTefLWi7gspKFYsrdpv3tjk6Uy5z1bl1_Gqwi-rJE5EesRu0uopg6pnZhnaCf8yGsY80l_-F966LxxlBPSQp_K-ETcdk-qiC4OguZjluyAl95ErP7i7IiNcAZgZuX1wat-PwXDC74a8kxm_ujZprUp-PLPkfkihMXyLRVzki37U8Pva_FPrY5MHSivtWpBndCfEln1OLjRRMYTzlMkNFkwj_hUjE-5ACLp1nT_J3_xFkMyc8Jm">
+</div>
+<div class="flex-1">
+<p class="font-label-lg text-on-surface font-semibold">Zara Sheikh</p>
+<p class="text-xs text-outline">Grade 12-A • Humanities</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-primary font-bold">1,595</p>
+<p class="text-[10px] text-green-600 font-bold">pts</p>
+</div>
+</div>
+<!-- Rank 6 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-surface-container-low transition-colors group cursor-pointer">
+<span class="w-8 text-center font-bold text-outline group-hover:text-primary">6</span>
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container border border-outline-variant">
+<img alt="Rohan Verma" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeb5ZQqIApDuIYCJp0QzBeHMMXysvq9KtXtjv2JSYMczpaqMuCh5eVMtJdPqcHlHbfH76U9RbDWiziCp8rCmK67Lsi-Wzs7HZt7Phu5-cFTlSYNZk9t5xM61Lbd2jtE-z3JdHdRAWIbNn6DtXT6LxhyKpe_kTytO3TN6mYKvP3i6uxp85Z0lphUkWrk7YkIEMsYnt_xMhn1IhcwqCaoZeGhStTf8ka6zLbztyO9xuc1Chgqc_H0lkUVfrXEYuZm2UtjTnKlyVF4nhU">
+</div>
+<div class="flex-1">
+<p class="font-label-lg text-on-surface font-semibold">Rohan Verma</p>
+<p class="text-xs text-outline">Grade 12-C • Commerce</p>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-primary font-bold">1,540</p>
+<p class="text-[10px] text-green-600 font-bold">pts</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- TAB: House Leads -->
+<div class="active" data-tab-content="" id="tab-house-leads">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: House Stats Summary -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-white rounded-2xl p-8 border border-outline-variant shadow-sm relative overflow-hidden text-center">
+<span class="material-symbols-outlined text-primary text-6xl mb-4 block">shield_with_heart</span>
+<h3 class="text-headline-md font-headline-md text-on-background">Your House Standing</h3>
+<p class="text-on-surface-variant mb-6">Blue House is currently leading the school!</p>
+<div class="flex flex-col gap-3">
+<div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
+<p class="text-xs uppercase tracking-widest text-outline font-bold mb-1">Total House Points</p>
+<p class="text-3xl font-bold text-primary">12,840</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-2xl p-6 border border-outline-variant">
+<h4 class="font-label-lg mb-4">Upcoming House Events</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary">sports_soccer</span>
+</div>
+<div>
+<p class="text-sm font-bold">Inter-House Football</p>
+<p class="text-[10px] text-outline">Tomorrow, 3:00 PM</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<div>
+<p class="text-sm font-bold">Science Quiz Bowl</p>
+<p class="text-[10px] text-outline">Friday, 11:00 AM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: House Rankings List -->
+<div class="lg:col-span-7">
+<section class="bg-white rounded-2xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="px-6 py-5 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">groups</span>
+<h2 class="font-label-lg text-secondary uppercase tracking-wider">House Standings</h2>
+</div>
+</div>
+<div class="divide-y divide-outline-variant max-h-[500px] overflow-y-auto sidebar-scroll">
+<!-- Blue House (1st) -->
+<div class="flex items-center gap-4 px-6 py-5 hover:bg-blue-50 transition-colors border-l-4 border-blue-600"><span class="w-8 text-center font-bold text-blue-600">1</span><div class="w-14 h-14 rounded-xl overflow-hidden bg-blue-100 flex items-center justify-center text-blue-600 border border-blue-200"><img alt="Poseidon House" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLtKsUMWQqaKznJcJ-lbRECujL3ePh2P8qc_pOZYQNGENAYT6q4kMIBHtHYDhMde_UQR2gi1UI2DQg1OI5rxo1enSHEDPDG4brsTMV9rmrWVQZFAohUb7G7Ph9v2kfy0VTFcN7Y0gLP8LGrAL5g3Y1UGeuYrJ2EaC4_lD6kyhop6yF73qOuyANxSyfPfLW3rNeuop58bCPpb3bkuiMMNfwnMW-VtoAEonlJqrG_HLnoX9Ru5Xt2o3-0FpSc"></div><div class="flex-1"><p class="font-headline-sm text-blue-900">Poseidon House</p><p class="text-xs text-blue-600 font-medium">Motto: Integrity &amp; Excellence</p></div><div class="text-right"><p class="font-headline-sm text-blue-700">12,840</p><p class="text-[10px] text-blue-500 font-bold uppercase tracking-tighter">points</p></div></div>
+<!-- Red House (2nd) -->
+<div class="flex items-center gap-4 px-6 py-5 hover:bg-red-50 transition-colors border-l-4 border-red-500"><span class="w-8 text-center font-bold text-red-500">2</span><div class="w-14 h-14 rounded-xl overflow-hidden bg-red-100 flex items-center justify-center text-red-500 border border-red-200"><img alt="Mercury House" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLtexz3wHHTVgFAFR9vTbRSdlJqXxe0ZrDvtBT3ORBR-ogGcd1QEkki-HN3DHp79sRPg-yudcXOQL3fvG8tpc8dDXKU0LPx7xSBLQo08PflcbzWhMCuvdUxJuxM8RJXRTfOmmhveqUmgQmVkOQlzww-kovqTzVDQ2nvvy1KwdBdwBEcwe_3AG0rLSrWcbJ1kzaMfPQaKv7aposytI9nwZZSU55fwchr5k4B5O9HqMAv9CIBh9RQRAZBLi3KD"></div><div class="flex-1"><p class="font-headline-sm text-red-900">Mercury House</p><p class="text-xs text-red-500 font-medium">Motto: Courage &amp; Honor</p></div><div class="text-right"><p class="font-headline-sm text-red-700">11,250</p><p class="text-[10px] text-red-400 font-bold uppercase tracking-tighter">points</p></div></div>
+<!-- Yellow House (3rd) -->
+<div class="flex items-center gap-4 px-6 py-5 hover:bg-yellow-50 transition-colors border-l-4 border-yellow-500"><span class="w-8 text-center font-bold text-yellow-600">3</span><div class="w-14 h-14 rounded-xl overflow-hidden bg-yellow-100 flex items-center justify-center text-yellow-600 border border-yellow-200"><img alt="Apollo House" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLs23ew-OAsNmXfTURyKXCUd2hC4wbn4ux67xGvund9ECQPmSi0fEf9fdaDruWg8iaKvDTivl_LYD3pVmsKEB1E8CxkAquP6FTGmOzc-vN74acHAwFUI79ZVRsBp1A2NN2VX1Lw6OTGIYPd7hnjgWLLzcmowZeNp6QXExbYzPB3FJ32YurkEDH_NWObmlizipotkm5Vy9ZMNpERN_JZFdQYGMIsKpaS0J4DVrF46YzFD4w3R3xPSpkB7zVGz"></div><div class="flex-1"><p class="font-headline-sm text-yellow-900">Apollo House</p><p class="text-xs text-yellow-600 font-medium">Motto: Wisdom &amp; Joy</p></div><div class="text-right"><p class="font-headline-sm text-yellow-700">9,820</p><p class="text-[10px] text-yellow-600 font-bold uppercase tracking-tighter">points</p></div></div>
+<!-- Green House (4th) -->
+<div class="flex items-center gap-4 px-6 py-5 hover:bg-green-50 transition-colors border-l-4 border-green-500"><span class="w-8 text-center font-bold text-green-600">4</span><div class="w-14 h-14 rounded-xl overflow-hidden bg-green-100 flex items-center justify-center text-green-600 border border-green-200"><img alt="Zeus House" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLs2Uj-55lz7wYdUkBgJlT_hMKcf429Tw57EpHCO8un3hOqkEwzmfGNtp_XulyCkqQMuyJoxwKmXjJET-pZz9NHClJAvBukS2JYpx17TdPaCNK9nWn0enHb7KiLScjfQiSQ7mnCw_LQn2YM4Cg3M7NC4FL86ltmRzLaH1Z1wHK3RJuqpQQMNfIy9gXrN-bM4xhA7MkveVclhhDWMpzIfwFzRTpNXowAKs60GGnf2i3eV_JAdk1fxcrlqojPJ"></div><div class="flex-1"><p class="font-headline-sm text-green-900">Zeus House</p><p class="text-xs text-green-600 font-medium">Motto: Growth &amp; Unity</p></div><div class="text-right"><p class="font-headline-sm text-green-700">9,140</p><p class="text-[10px] text-green-500 font-bold uppercase tracking-tighter">points</p></div></div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<section class="mt-8">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<h2 class="font-headline-sm text-on-background">Pro Tips for Earning Euros</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Tip 1 -->
+<div class="bg-white p-4 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined">calculate</span>
+</div>
+<p class="text-sm font-bold text-on-surface">Daily Challenge</p>
+<p class="text-xs text-on-surface-variant">Complete your math daily challenge for a 2x bonus on your base points.</p>
+</div>
+<!-- Tip 2 -->
+<div class="bg-white p-4 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<p class="text-sm font-bold text-on-surface">Consistency Pays</p>
+<p class="text-xs text-on-surface-variant">Log in for 5 days straight to earn 25 bonus Euros and a streak badge</p>
+</div>
+<!-- Tip 3 -->
+<div class="bg-white p-4 rounded-xl border border-outline-variant shadow-sm flex flex-col gap-2 hover:bg-surface-container-low transition-colors">
+<div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+<span class="material-symbols-outlined">forum</span>
+</div>
+<p class="text-sm font-bold text-on-surface">Peer Support</p>
+<p class="text-xs text-on-surface-variant">Help a classmate with a query in the Ask Newton center to earn community points.</p>
+</div>
+</div>
+</section></div>
+</main>
+</div>
+<script>
+    function switchTab(tabId) {
+        // Update Buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            if (btn.getAttribute('data-tab') === tabId) {
+                btn.classList.add('bg-white', 'text-primary', 'shadow-sm');
+                btn.classList.remove('text-outline');
+            } else {
+                btn.classList.remove('bg-white', 'text-primary', 'shadow-sm');
+                btn.classList.add('text-outline');
+            }
+        });
+
+        // Update Content
+        document.querySelectorAll('[data-tab-content]').forEach(content => {
+            if (content.id === `tab-${tabId}`) {
+                content.classList.add('active');
+            } else {
+                content.classList.remove('active');
+            }
+        });
+    }
+
+    // Micro-interaction for hover effects on podium
+    document.querySelectorAll('.podium-shadow').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'translateY(-4px)';
+            item.style.transition = 'transform 0.2s ease-out';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+<!-- Rank Info Modal Replacement -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm hidden" id="rank-info-modal">
+<div class="w-full max-w-5xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative flex flex-col h-[80vh] max-h-[600px] backdrop-blur-sm bg-white/60">
+<!-- Header -->
+<div class="px-8 py-6 border-b border-white/10 flex justify-between items-center z-10 bg-black">
+<h3 class="font-headline-md text-white font-bold tracking-wide">Ranks</h3>
+<button class="text-white/50 hover:text-white transition-colors p-2" onclick="document.getElementById('rank-info-modal').classList.add('hidden')">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+</div>
+<!-- Graph Area -->
+<div class="flex-1 relative flex items-end justify-between gap-2 overflow-x-auto sidebar-scroll pb-16 px-4 pt-24 bg-black/80"><!-- Mercury -->
+<div class="flex flex-col items-center flex-shrink-0 group w-24">
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-slate-400 shadow-[0_0_15px_rgba(226,232,240,0.5)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Mercury" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzTxXfifrxejuonSnlGDdkcTBVyGc-RQ40AfY0yHMKtZ9AtrLZzv86HNxPuNuj77DnhmGjh0ZZIGll82oS2-zoUueJPgnFG9bL9sq6JAza_ue0NdkNjZ6JE6A4wl2lVfM813Yf8UErFl2_xkj7yGny2iUP_xBaYTE_gZR7wSp0RnJkuiVjMowTWhGi2JewEpPUfY5_tNFJYt6YG7d61uaV29Zu91infRrDZZe2G3XFT01OY9VKFjbmBLCyVZcM2CjiyOlJdTFWpek"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-lg italic">0+</p>
+<p class="text-slate-400 text-[10px] font-semibold uppercase tracking-wider">Mercury</p>
+</div>
+<div class="w-full bg-gradient-to-t from-slate-400/20 to-slate-400/80 h-[80px] -mt-16 opacity-80"></div>
+</div>
+<!-- Venus -->
+<div class="flex flex-col items-center flex-shrink-0 group w-24">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-stone-400 shadow-[0_0_15px_rgba(231,229,228,0.5)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Venus" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8SEUiGwmtSsGFusgXB_V_7DpkFcOFh2-U46uZgjtvM8lkIn3xtiU5ac2508I3MXlZ-bj4wEQBZN9ze2TGuNfxM12gnlUyy14OV7hDsolzm0UDa1F9JC15eTjmdfd9Irw3vxtrf8fK8wB3nRSsfvo8_GC7jQNECi19ShxgLfHm9ZFfm4tPXqy0ISKNvX8KjAtL8m6gJArYszCjWaXhYmu4JgWPteis_IakfvZUsTMmLWFOlxG6zYxSrZWW1LC7Sp0fj0sNpVNwneg"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-lg italic">500+</p>
+<p class="text-stone-400 text-[10px] font-semibold uppercase tracking-wider">Venus</p>
+</div>
+<div class="w-full bg-gradient-to-t from-stone-400/20 to-stone-400/80 h-[110px] -mt-16 opacity-80"></div>
+</div>
+<!-- Earth -->
+<div class="flex flex-col items-center flex-shrink-0 group w-24">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-teal-400 shadow-[0_0_15px_rgba(153,246,228,0.5)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Earth" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrzgqodK2BtdJZ9oMIPQ_ZV3rc3B9jLCDqQ-4qI7a-Py_Dqt-I1ni_0Hcsul5EYbbocOQzYVuzWd7ljyN55AHw098BM_rsyIikxsQS2K9v4qU4k12uypWNCCsIHN12NCmNrRGA39tK1RckRzgut4plh-rD_OC1QcDXIoe0wPYAWBYY9KvJ3ZgV6ycsRVj1gHv_edWSnljYEqo9AtV4w2xVVEh4NY5rpB5cnaAq8MvwShNzA15PG9k5aSGlvSC6wfEGPHRMndL6VAI"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-lg italic">1,000+</p>
+<p class="text-teal-400 text-[10px] font-semibold uppercase tracking-wider">Earth</p>
+</div>
+<div class="w-full bg-gradient-to-t from-teal-400/20 to-teal-400/80 h-[140px] -mt-16 opacity-80"></div>
+</div>
+<!-- Mars -->
+<div class="flex flex-col items-center flex-shrink-0 group w-24">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-red-600 shadow-[0_0_15px_rgba(248,113,113,0.5)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Mars" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD33jjrRmYNj2dkMarL8FNvvUmESQXxN81QB3jJ9zvO_TqxlblFrv3hgTpG-kIxnmkguAol73znwBfPRoHURviQbMiViSv6bgBymw8MOMrRsFKibbujogL1fAP6MO704ohyc_ibx3Zv3DG51EbUFuqWyMzIlc3TRvCC8wmM7j1pgSE-5lsxb6xDzaX3pEW12ibgL0qycrzX12z1VGymm6uwEOqG8NzRS-wSggJAkAWdfKZHDpz_MVnw6I41dLdOHr-PmvGWfUJWY6g"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-lg italic">1,500+</p>
+<p class="text-red-500 text-[10px] font-semibold uppercase tracking-wider">Mars</p>
+</div>
+<div class="w-full bg-gradient-to-t from-red-600/20 to-red-500/80 h-[170px] -mt-16 opacity-80"></div>
+</div>
+<!-- Jupiter -->
+<div class="flex flex-col items-center flex-shrink-0 group w-28">
+<div class="w-16 h-16 rounded-full overflow-hidden border-4 border-orange-500 shadow-[0_0_20px_rgba(253,186,116,0.6)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Jupiter" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtoctATjZu6pQEiivHxpMk3xpeDCy2bbnLhD3f8ruUKOhzne9nkSH9CEX-zXZEJsw1gKI0Wfah59zJpalGNHI3TNJY5dwTf-T0RgBkwQZ28DTNr4VOkuoPNWQW_Ux44PLP3SxYW8-BsctqO2KdR7k5Dboht5zN1WYF14EW6sVJuIopI8-2DJKYQszQ4HnOG2uAx9t6TMo5_DFR2p0zTH3GAmvkFbSJG_E3BXAsF0JrLy_JS1mKou2R7c-EJRKKj8HRe2VNEUL-c44"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-xl italic">2,000+</p>
+<p class="text-orange-400 text-xs font-semibold uppercase tracking-wider">Jupiter</p>
+</div>
+<div class="w-full bg-gradient-to-t from-orange-600/20 to-orange-500/90 h-[200px] -mt-20 opacity-80"></div>
+</div>
+<!-- Saturn -->
+<div class="flex flex-col items-center flex-shrink-0 group w-28">
+<div class="w-16 h-16 rounded-full overflow-hidden border-4 border-yellow-600 shadow-[0_0_20px_rgba(250,204,21,0.6)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Saturn" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAarMAgr3nkZtiS-XNhz_CPxI2iLqsbExnXkA_tQgOz-vDIRYiUySzb-9zAV8Lw9GJkI5wUJ2uZ_N3_a_RAtEYJvFo7C1r90ivVOfSU_TEvVDYyM3GSe1I8C3_zw_nQDPtrxi4jLNl2QVGR7m-NrrGsp5PfMhMBBWiDJ-hUiFNjoAu3QWMhRPNu7-ekiJrLoDaTayDVikse6w_bB3xGKOMquNpS8n_yFcdGz4rypVjvizm217bxs4iTTnoy0_BXgegJFt0j5xyoTM"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-xl italic">2,500+</p>
+<p class="text-yellow-500 text-xs font-semibold uppercase tracking-wider">Saturn</p>
+</div>
+<div class="w-full bg-gradient-to-t from-yellow-600/20 to-yellow-500/90 h-[230px] -mt-20 opacity-80"></div>
+</div>
+<!-- Uranus -->
+<div class="flex flex-col items-center flex-shrink-0 group w-32">
+<div class="w-20 h-20 rounded-full overflow-hidden border-4 border-sky-500 shadow-[0_0_20px_rgba(125,211,252,0.6)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Uranus" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDabkvv9urdeSHXdYJv1C4sZ7wFBA7IL4QDRXrHQX5zKXz6k2jfbiE5hQYOxEaF9cNVJBLoT3-CDy4CAmcaNDX6_LgmvLB-504rj8zWqL3lFZooA1vQpxMke9oMeeX2B4yPFv9WU8fi_ziPLzQUzuZ26hFuJDeiK0Z_fILR9Ev3Fg1rfFFJnH11osFjyRwGe3AQAVSju3VzRG6dtkNNKjFKAA03OjoOOunpYxKANWRLOsmJ54X57SV-YCgB0dUR0dp-i9YqDhMIBI0"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-xl italic">3,000+</p>
+<p class="text-sky-400 text-xs font-semibold uppercase tracking-wider">Uranus</p>
+</div>
+<div class="w-full bg-gradient-to-t from-sky-600/20 to-sky-500/90 h-[260px] -mt-24 opacity-80"></div>
+</div>
+<!-- Neptune -->
+<div class="flex flex-col items-center flex-shrink-0 group w-32">
+<div class="w-20 h-20 rounded-full overflow-hidden border-4 border-blue-800 shadow-[0_0_25px_rgba(37,99,235,0.7)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Neptune" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbYQPhc8Ej8pBPhqF7EP3EGkMqY1i3zF4Z-9FDqIuCRJIV22KA0v2W1M4EoAGUBk4hWzcVyj4afM3iZ2J_505ihhLLbgjm3HMMajEwxIkaxoOe7g9lo6_LgWQvUVimXe6I_RaRGPwsRZ01UZgKDDRG-sv6JkbdrZca_lTqvkd8DXMzZoDF3Fd07EH6iwjl5QP4LoTdXT7vD5GJ7-rQ34-ukT7ujUBbIWRswOguIxY3H9R14q6-pzuezHmlIviO_so4t4yN7pt3OKU"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-xl italic">3,500+</p>
+<p class="text-blue-500 text-xs font-semibold uppercase tracking-wider">Neptune</p>
+</div>
+<div class="w-full bg-gradient-to-t from-blue-900/40 to-blue-600/90 h-[290px] -mt-24 opacity-80"></div>
+</div>
+<!-- Andromeda -->
+<div class="flex flex-col items-center flex-shrink-0 group w-36 relative">
+<div class="w-28 h-28 rounded-full overflow-hidden border-8 border-purple-300 shadow-[0_0_35px_rgba(147,51,234,0.8)] relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center bg-transparent"><img alt="Andromeda" class="w-full h-full object-contain bg-transparent" src="https://lh3.googleusercontent.com/aida/AP1WRLvQjVS9zZSIAdiUinltaX6u3U6bepQ8csQlfOOdf0cM73qEzxqoJ_p0tjxFxjvEgXsmYNrd3CDCy7ZKnFDgDZObfwbuJTWrOqDN-5E7C6kzRgcNwtQJL-lVN9kucVrtWq1ZCnneKu5IjPqgT6ZZrh-G9rb4Fz87ANmJgpnNvnUeodxk8rToMODddIA8jHgn1ioZS-kACabLAOdshJ6MMuOadnhsRsics3z2Wc_NjHS5DoCAXk-aZlW1SbA"></div>
+<div class="text-center z-10 mb-2 mt-4">
+<p class="text-white font-bold text-2xl italic drop-shadow-md">4,500+</p>
+<p class="text-purple-400 text-sm font-bold uppercase tracking-widest drop-shadow-md">Cosmic</p>
+</div>
+<div class="w-full bg-gradient-to-t from-purple-950/80 to-purple-600/95 h-[320px] -mt-32 shadow-[inset_0_0_20px_rgba(147,51,234,0.5)]"></div>
+</div></div>
+</div>
+<div class="absolute inset-0 -z-10 bg-white/20 backdrop-blur-sm" onclick="document.getElementById('rank-info-modal').classList.add('hidden')"></div>
+</div>
+<div class="fixed bottom-8 right-8 z-50 cursor-pointer hover:scale-110 transition-transform" id="floatingAiButton"><div class="flex flex-col items-end gap-3 group"><div class="bg-white/80 backdrop-blur-md px-4 py-2 rounded-xl border border-white shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"><p class="text-[12px] font-bold text-primary whitespace-nowrap">Newton sees what you see — ask anything about this page.</p></div><div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center shadow-lg hover:shadow-primary/20 transition-all active:scale-95 border border-white/40 shadow-[inset_0_0_15px_rgba(255,255,255,0.4)]" onclick="document.getElementById('askDoubtDrawer').classList.remove('translate-x-full'); document.getElementById('drawerOverlay').classList.remove('hidden')"><img alt="AI Assistant" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC54TRd8mUISxdCrEgCZIw2qB36ZSBH9EYYzpJr3jA5hFZ_oQeFGUcle2jK39I8ZYU2K_WpN90-tnzpvtochVfUHQds1K5XeadBoEolrIJUdkC6r2LeFj51NaSPU7oFDIAcxEHzgTDKmuFGqSXf4hATbUxBcqvw75owo09WPsysIpliKQLHtQdFbXv0NLQcQXf5paOK2K6XOQuKLNEpU0j4VivCmdHTfXqI0nB4DUZIfQKRUPE-rWXAjCj2m7l9TRnaFAqZ2D1BYo"></div></div></div><div class="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 transition-opacity" id="drawerOverlay" onclick="this.classList.add('hidden'); document.getElementById('askDoubtDrawer').classList.add('translate-x-full')"></div><div class="fixed top-0 right-0 h-full w-full max-w-md bg-white border-l border-outline-variant shadow-2xl z-50 transform transition-transform duration-300 flex flex-col" id="askDoubtDrawer"><div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low/50"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">smart_toy</span></div><h2 class="font-headline-md text-lg text-on-surface">Newton AI: <span class="text-primary text-[16px]">Leaderboard - EuroSchool</span></h2></div><button class="text-on-surface-variant hover:text-on-surface" onclick="document.getElementById('askDoubtDrawer').classList.add('translate-x-full'); document.getElementById('drawerOverlay').classList.add('hidden')"><span class="material-symbols-outlined">close</span></button></div><div class="p-6 bg-white border-b border-outline-variant/50"><div class="bg-gradient-to-r from-yellow-100 to-white border border-yellow-200 rounded-2xl p-4 relative overflow-hidden shadow-sm"><p class="text-[11px] font-bold text-yellow-700 uppercase tracking-wider mb-2 relative z-10">ANSWER &amp; EARN</p><h3 class="font-headline-md text-[16px] text-on-surface mb-3 relative z-10">Help peers and earn premium rewards!</h3><div class="flex gap-3 relative z-10"><div class="flex items-center gap-1.5 bg-white/80 backdrop-blur px-3 py-1.5 rounded-lg border border-yellow-200 shadow-sm"><span class="material-symbols-outlined text-[16px] text-yellow-600 fill-icon">stars</span><span class="font-bold text-[14px] text-yellow-700">10 EXP</span></div><div class="flex items-center gap-1.5 bg-white/80 backdrop-blur px-3 py-1.5 rounded-lg border border-outline-variant/30 shadow-sm"><span class="material-symbols-outlined text-[16px] text-on-surface-variant">payments</span><span class="font-bold text-[14px] text-on-surface">10 Euros</span></div></div></div></div><div class="flex-1 overflow-y-auto p-6 space-y-6 bg-surface"><div class="flex gap-3 max-w-[85%]"><div class="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mt-1"><span class="material-symbols-outlined text-[16px] text-primary">smart_toy</span></div><div class="bg-white border border-outline-variant p-4 rounded-2xl rounded-tl-none shadow-sm text-[14px] text-on-surface">Hi Jane! I'm Newton. How can I help you with the house standings today?</div></div><div class="flex gap-3 max-w-[85%] ml-auto justify-end"><div class="bg-primary text-white p-4 rounded-2xl rounded-tr-none shadow-sm text-[14px]">Why is Poseidon House leading?</div></div><div class="flex gap-3 max-w-[85%]"><div class="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mt-1"><span class="material-symbols-outlined text-[16px] text-primary">smart_toy</span></div><div class="bg-white border border-outline-variant p-4 rounded-2xl rounded-tl-none shadow-sm text-[14px] text-on-surface">Poseidon House is currently leading with 12,840 points due to high participation in recent Inter-House Football events and Science Quiz Bowl wins.</div></div></div><div class="p-4 bg-white border-t border-outline-variant"><div class="flex items-center gap-3 mb-3 px-1"><button class="flex items-center gap-1.5 bg-surface-container-low hover:bg-surface-container transition-colors px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-primary border border-outline-variant/50"><span class="material-symbols-outlined text-[16px]">group</span><span class="text-[12px] font-bold">Ask Community</span></button><button class="flex items-center gap-1.5 bg-surface-container-low hover:bg-surface-container transition-colors px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-primary border border-outline-variant/50"><span class="material-symbols-outlined text-[16px]">quiz</span><span class="text-[12px] font-bold">Make Quiz</span></button></div><div class="flex items-center bg-surface-container-low border border-outline-variant rounded-full p-2"><button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">attach_file</span></button><input class="flex-1 bg-transparent border-none focus:ring-0 text-[14px] px-2 text-on-surface placeholder:text-on-surface-variant/60" placeholder="Ask doubt..." type="text"><button class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm"><span class="material-symbols-outlined text-[18px]">send</span></button></div></div></div>
+
+
+
+
+
+
+
+</body></html>

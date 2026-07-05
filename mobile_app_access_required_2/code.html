@@ -1,0 +1,194 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoSync | Mobile App Required</title>
+<!-- Fonts: Inter for Body, Space Grotesk for Display -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#30e375",
+                    "primary-container": "#00d166",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#006d32",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#dae2fd",
+                    "surface": "#f8f9ff",
+                    "primary-fixed": "#64ff92",
+                    "on-surface": "#0b1c30",
+                    "secondary-fixed-dim": "#adc7ff",
+                    "on-tertiary-container": "#3f475c",
+                    "on-primary-container": "#005324",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#004493",
+                    "on-secondary-fixed": "#001a41",
+                    "primary-fixed-dim": "#30e375",
+                    "on-tertiary-fixed-variant": "#3f465c",
+                    "on-surface-variant": "#3c4a3d",
+                    "outline": "#6c7b6c",
+                    "inverse-on-surface": "#eaf1ff",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#bec6e0",
+                    "outline-variant": "#bbcbb9",
+                    "secondary": "#0059bb",
+                    "on-tertiary-fixed": "#131b2e",
+                    "surface-container-high": "#dce9ff",
+                    "surface-variant": "#d3e4fe",
+                    "surface-bright": "#f8f9ff",
+                    "tertiary-container": "#aeb5cf",
+                    "surface-container-highest": "#d3e4fe",
+                    "inverse-surface": "#213145",
+                    "primary": "#006d32",
+                    "on-background": "#0b1c30",
+                    "secondary-container": "#0070ea",
+                    "on-primary-fixed": "#00210b",
+                    "on-secondary-container": "#fefcff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#e5eeff",
+                    "background": "#f8f9ff",
+                    "tertiary": "#565e74",
+                    "on-primary-fixed-variant": "#005224",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "lg": "0.75rem",
+                    "xl": "1rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk", "sans-serif"],
+                    "display": ["Space Grotesk", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .modal-shadow {
+            box-shadow: 0 24px 48px -12px rgba(11, 28, 48, 0.15);
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen overflow-hidden">
+<!-- Blurred Background Content (Simulated Dashboard) -->
+<main class="fixed inset-0 z-0 p-6 filter blur-md opacity-50 select-none pointer-events-none">
+<!-- Top App Bar Mock -->
+<header class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container"></div>
+<h1 class="text-xl font-bold tracking-tight">EcoSync</h1>
+</div>
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</header>
+<!-- Bento Grid Layout Mock -->
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-2 h-48 bg-surface-container-low rounded-xl p-6">
+<div class="w-1/2 h-4 bg-outline-variant/20 rounded mb-4"></div>
+<div class="w-3/4 h-8 bg-primary/10 rounded"></div>
+</div>
+<div class="h-40 bg-surface-container rounded-xl p-6">
+<div class="w-full h-full bg-secondary/5 rounded-lg"></div>
+</div>
+<div class="h-40 bg-surface-container-high rounded-xl p-6">
+<div class="w-full h-full bg-primary-container/10 rounded-lg"></div>
+</div>
+<div class="col-span-2 h-32 bg-surface-container-lowest rounded-xl p-6">
+<div class="w-full h-4 bg-outline-variant/10 rounded"></div>
+</div>
+</div>
+</main>
+<!-- Overlay Layer -->
+<div class="fixed inset-0 z-10 bg-on-surface/5 backdrop-blur-sm flex items-center justify-center p-6">
+<!-- Centered Modal -->
+<div class="relative w-full max-w-sm glass-panel modal-shadow rounded-xl overflow-hidden border border-white/40">
+<!-- Modal Content Wrapper -->
+<div class="p-8 flex flex-col items-center text-center">
+<!-- Illustration/Icon Section -->
+<div class="mb-6 relative">
+<!-- Subtle Glow Effect -->
+<div class="absolute inset-0 bg-primary-container blur-2xl opacity-20 scale-150"></div>
+<div class="w-20 h-20 bg-surface-container-lowest rounded-2xl flex items-center justify-center relative border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'wght' 300;">install_mobile</span>
+</div>
+</div>
+<!-- Text Content -->
+<h2 class="text-2xl font-bold text-on-surface mb-3 tracking-tight font-display">Mobile App Required</h2>
+<p class="text-on-surface-variant leading-relaxed text-sm px-2">
+                    You need the mobile app to access this feature from your mobile device. Get the full experience with real-time tracking and advanced automations.
+                </p>
+<!-- Action Buttons -->
+<div class="w-full mt-8 flex flex-col gap-3">
+<button class="group relative w-full bg-primary hover:bg-surface-tint text-on-primary py-4 px-6 rounded-lg font-semibold transition-all duration-300 shadow-lg shadow-primary/20 active:scale-[0.98]">
+<span class="relative z-10">Download App</span>
+<!-- Neon Accent Overlay -->
+<div class="absolute inset-0 rounded-lg bg-gradient-to-r from-primary-container to-primary-fixed-dim opacity-0 group-hover:opacity-10 transition-opacity"></div>
+</button>
+<button class="w-full py-3 px-6 text-primary font-medium hover:bg-primary-container/10 rounded-lg transition-colors duration-200" onclick="window.history.back()">
+                        Dismiss
+                    </button>
+</div>
+</div>
+<!-- Subtle Decorative Elements -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary via-primary-container to-secondary"></div>
+</div>
+</div>
+<!-- Background Atmospheric Effect -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+
+</div>
+<script>
+        // Micro-interaction for the modal entry
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.querySelector('.glass-panel');
+            modal.style.opacity = '0';
+            modal.style.transform = 'scale(0.95) translateY(10px)';
+            
+            setTimeout(() => {
+                modal.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                modal.style.opacity = '1';
+                modal.style.transform = 'scale(1) translateY(0)';
+            }, 100);
+        });
+
+        // Basic button press effect
+        const primaryBtn = document.querySelector('.bg-primary');
+        primaryBtn.addEventListener('mousedown', () => {
+            primaryBtn.style.transform = 'scale(0.97)';
+        });
+        primaryBtn.addEventListener('mouseup', () => {
+            primaryBtn.style.transform = 'scale(1)';
+        });
+    </script>
+</body></html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Argus LMS - Login</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800&amp;family=Nunito+Sans:wght@400;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f8f2f9",
+                        "on-primary-fixed-variant": "#4e3a82",
+                        "on-tertiary-fixed": "#351000",
+                        "neptune-indigo": "#3F51B5",
+                        "surface-white": "#FFFFFF",
+                        "on-secondary-fixed": "#03006d",
+                        "secondary-fixed": "#e1e0ff",
+                        "primary-container": "#2c155f",
+                        "secondary-container": "#949aff",
+                        "streak-flame": "#FF5722",
+                        "surface": "#fdf7ff",
+                        "tertiary": "#240800",
+                        "outline": "#7a7581",
+                        "venus-sulfur": "#FFF176",
+                        "surface-container-highest": "#e6e1e8",
+                        "on-secondary-container": "#282c8c",
+                        "surface-container-high": "#ece6ed",
+                        "inverse-surface": "#322f35",
+                        "on-tertiary-container": "#c47b58",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bfc1ff",
+                        "primary-fixed-dim": "#cfbcff",
+                        "surface-container": "#f2ecf3",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary-fixed-variant": "#363b9a",
+                        "surface-variant": "#e6e1e8",
+                        "surface-tint": "#66529c",
+                        "surface-bright": "#fdf7ff",
+                        "on-error": "#ffffff",
+                        "background": "#fdf7ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#494550",
+                        "inverse-on-surface": "#f5eff6",
+                        "tertiary-container": "#461700",
+                        "on-primary-container": "#9680ce",
+                        "on-surface": "#1d1b20",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "outline-variant": "#cac4d1",
+                        "surface-dim": "#ded8df",
+                        "exp-gold": "#F9A825",
+                        "on-tertiary-fixed-variant": "#70371a",
+                        "inverse-primary": "#cfbcff",
+                        "on-primary-fixed": "#220655",
+                        "on-background": "#1d1b20",
+                        "tertiary-fixed": "#ffdbcc",
+                        "jupiter-tan": "#BCAAA4",
+                        "error": "#ba1a1a",
+                        "secondary": "#4f54b4",
+                        "on-primary": "#ffffff",
+                        "primary": "#160041",
+                        "mars-red": "#EF5350"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "margin-md": "24px",
+                        "margin-lg": "40px",
+                        "base": "8px",
+                        "margin-sm": "12px"
+                    },
+                    "fontFamily": {
+                        "stat-exp": ["Nunito Sans"],
+                        "headline-md": ["Nunito Sans"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "body-sm": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "stat-exp": ["18px", { "lineHeight": "1.0", "fontWeight": "900" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.08em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "900" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "900" }],
+                        "body-sm": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen font-body-lg antialiased overflow-hidden">
+<main class="w-full min-h-screen relative flex items-center justify-center p-4">
+<!-- Full-Bleed Background with Blur Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Background Space" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2BPhN5bPSeUk9-QKHgPrKvWlSHZeo-g6bbn25gHnuTpH04CxV92KXalsav2QhSpyg3vW-si7q5cUpiOzQqaFKReq0JawJ1dCH35z6g3z_d28HYt4B0chequ2j38pDD1Zg84RYeAapzHb3dX_oDYSJfEFkLsm_o72-iVKP0Vhz8DnvVb4fkmtSWDxKxj33bSrou2K8zHHXSzr9AaLKyKhY0OvnsP97zuIRkdfwRP00rFg_gZqElN7WHcyZN-twoZDVk5c"/>
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-xl"></div>
+</div>
+<!-- Glassmorphic Login Card -->
+<div class="relative z-10 w-full max-w-[480px] bg-surface-white/60 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.15)] rounded-2xl overflow-hidden flex flex-col">
+<!-- Role Selection Tabs -->
+<div class="flex border-b border-white/30 bg-surface-white/40">
+<button class="flex-1 py-4 text-center font-headline-md text-[16px] border-b-2 border-primary text-primary bg-white/30 transition-colors focus:outline-none" type="button">
+                    Student
+                </button>
+<button class="flex-1 py-4 text-center font-headline-md text-[16px] border-b-2 border-transparent text-on-surface-variant hover:bg-white/20 transition-colors focus:outline-none" type="button">
+                    Staff
+                </button>
+<button class="flex-1 py-4 text-center font-headline-md text-[16px] border-b-2 border-transparent text-on-surface-variant hover:bg-white/20 transition-colors focus:outline-none" type="button">
+                    Parent
+                </button>
+</div>
+<div class="p-8 flex flex-col justify-center">
+<!-- Brand / Header -->
+<div class="flex flex-col items-center mb-8 text-center">
+<div class="w-20 h-20 bg-surface-white rounded-xl flex items-center justify-center mb-4 shadow-sm border border-white/50 p-2">
+<img alt="Argus Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEf_JFKH1fDST67-3sMpx8aagCuVErh7BjQmC5dJSyyeFTGEAruyM7l9KjvrBpPA8IYlAI7w2CClub1cHQ1iPuudqVwuV-eBAAieeS95aAOmx6xB0O_KH-aC8Ipzgv9P_ZnBjoBzusk9_H4riLirkoooIqGxCZTHCnmshIrLxOULo434e49DY5KDxQWM37L8u5M-ViklKYSibr8LuI5e0S-Rp0n-MLLh_FOG0Dr01v3TpZ5MfS14MjCarPYjqJz9wrh1Y"/>
+</div>
+<h2 class="font-label-caps text-label-caps text-secondary tracking-widest uppercase mb-1">Argus LMS</h2>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">Welcome Back</h1>
+<p class="font-body-sm text-on-surface-variant">Please sign in to access your portal.</p>
+</div>
+<!-- Login Form -->
+<form class="space-y-5">
+<!-- Identifier Input -->
+<div class="space-y-1.5">
+<label class="block font-label-caps text-label-caps text-on-surface-variant uppercase" for="identifier">Enrollment Number / Phone Number / User ID <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-white/50 border border-white/60 text-on-surface rounded-lg px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-lg placeholder:text-outline-variant/80 backdrop-blur-sm shadow-sm" id="identifier" placeholder="e.g. 2122ES111265" required="" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="block font-label-caps text-label-caps text-on-surface-variant uppercase" for="password">Password <span class="text-error">*</span></label>
+<a class="font-body-sm text-secondary hover:text-primary transition-colors focus:outline-none focus:underline" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-white/50 border border-white/60 text-on-surface rounded-lg px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-lg placeholder:text-outline-variant/80 backdrop-blur-sm shadow-sm" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute inset-y-0 right-0 flex items-center pr-4 text-outline hover:text-on-surface transition-colors focus:outline-none" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-[20px]" id="toggleIcon">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Buttons -->
+<div class="pt-4 space-y-4">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-headline-md text-[16px] py-3.5 rounded-lg shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" type="submit">
+                            Proceed
+                            <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-outline-variant/40"></div>
+<span class="flex-shrink-0 mx-4 text-on-surface-variant font-body-sm text-sm">Or</span>
+<div class="flex-grow border-t border-outline-variant/40"></div>
+</div>
+<button class="w-full bg-surface-white/40 border border-primary text-primary hover:bg-white/60 font-headline-md text-[16px] py-3.5 rounded-lg transition-all active:scale-[0.98] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 shadow-sm backdrop-blur-sm" type="button">
+                            Login Using OTP
+                        </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Footer -->
+<footer class="absolute bottom-6 left-0 right-0 flex flex-col items-center gap-2 z-10">
+<div class="flex items-center gap-2 text-surface-white/80 font-body-sm backdrop-blur-sm bg-black/20 px-4 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<a class="hover:text-surface-white transition-colors focus:outline-none focus:underline" href="mailto:help@lighthouse-learning.com">help@lighthouse-learning.com</a>
+</div>
+<div class="flex items-center gap-4 font-body-sm text-surface-white/60 text-sm backdrop-blur-sm bg-black/20 px-4 py-1 rounded-full">
+<a class="hover:text-surface-white transition-colors focus:outline-none focus:underline" href="#">Privacy</a>
+<span class="w-px h-3 bg-surface-white/30"></span>
+<a class="hover:text-surface-white transition-colors focus:outline-none focus:underline" href="#">Terms</a>
+</div>
+</footer>
+</main>
+<script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = 'visibility';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = 'visibility_off';
+            }
+        }
+    </script>
+</body></html>

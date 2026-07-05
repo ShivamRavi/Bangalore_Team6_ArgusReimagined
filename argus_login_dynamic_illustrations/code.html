@@ -1,0 +1,238 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Argus LMS - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@800&amp;family=Nunito+Sans:wght@400;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "streak-flame": "#FF5722",
+                      "secondary": "#4f54b4",
+                      "secondary-fixed": "#e1e0ff",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#9680ce",
+                      "tertiary": "#240800",
+                      "on-background": "#1d1b20",
+                      "on-primary-fixed": "#220655",
+                      "background": "#fdf7ff",
+                      "on-primary-fixed-variant": "#4e3a82",
+                      "tertiary-container": "#461700",
+                      "on-secondary-fixed": "#03006d",
+                      "surface-dim": "#ded8df",
+                      "surface-white": "#FFFFFF",
+                      "surface-container-low": "#f8f2f9",
+                      "on-secondary-fixed-variant": "#363b9a",
+                      "surface-container-high": "#ece6ed",
+                      "on-error": "#ffffff",
+                      "exp-gold": "#F9A825",
+                      "secondary-container": "#949aff",
+                      "on-surface": "#1d1b20",
+                      "surface-container-highest": "#e6e1e8",
+                      "on-tertiary-container": "#c47b58",
+                      "tertiary-fixed-dim": "#ffb695",
+                      "inverse-primary": "#cfbcff",
+                      "on-error-container": "#93000a",
+                      "neptune-indigo": "#3F51B5",
+                      "primary-fixed-dim": "#cfbcff",
+                      "on-secondary-container": "#282c8c",
+                      "primary-container": "#2c155f",
+                      "primary": "#160041",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-surface-variant": "#494550",
+                      "inverse-on-surface": "#f5eff6",
+                      "inverse-surface": "#322f35",
+                      "surface-bright": "#fdf7ff",
+                      "surface-tint": "#66529c",
+                      "mars-red": "#EF5350",
+                      "secondary-fixed-dim": "#bfc1ff",
+                      "outline-variant": "#cac4d1",
+                      "jupiter-tan": "#BCAAA4",
+                      "venus-sulfur": "#FFF176",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#fdf7ff",
+                      "surface-container": "#f2ecf3",
+                      "on-tertiary-fixed-variant": "#70371a",
+                      "primary-fixed": "#e9ddff",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#ffdbcc",
+                      "outline": "#7a7581",
+                      "on-tertiary-fixed": "#351000",
+                      "surface-variant": "#e6e1e8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "margin-lg": "40px",
+                      "container-padding": "24px",
+                      "base": "8px",
+                      "margin-md": "24px",
+                      "margin-sm": "12px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Nunito Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Nunito Sans"
+                      ],
+                      "headline-lg": [
+                              "Nunito Sans"
+                      ],
+                      "stat-exp": [
+                              "Nunito Sans"
+                      ],
+                      "body-sm": [
+                              "Nunito Sans"
+                      ],
+                      "body-lg": [
+                              "Nunito Sans"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "stat-exp": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .login-gradient {
+            background: linear-gradient(135deg, rgba(22,0,65,1) 0%, rgba(63,81,181,1) 100%);
+        }
+        .form-input:focus {
+            box-shadow: none;
+            border-color: #160041;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center font-body-lg">
+<main class="w-full h-screen flex flex-col md:flex-row">
+<!-- Left Side: Login Form -->
+<section class="w-full md:w-1/2 lg:w-5/12 xl:w-[480px] bg-surface-container-lowest h-full flex flex-col justify-center px-margin-lg py-margin-lg shadow-[4px_0_24px_rgba(0,0,0,0.05)] z-10">
+<div class="max-w-sm w-full mx-auto">
+<!-- Brand -->
+<div class="mb-12 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">public</span>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tighter">Argus LMS</h1>
+</div>
+<!-- Welcome Text -->
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Welcome Explorer</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Access your celestial mission logs and academy modules.</p>
+</div>
+<!-- Form -->
+<form class="space-y-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2" for="email">OPERATIVE ID / EMAIL</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="form-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 font-body-lg text-on-surface focus:ring-0 focus:border-primary transition-colors" id="email" name="email" placeholder="hq@argus.mission" required="" type="email">
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2" for="password">SECURITY KEY</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="form-input w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 font-body-lg text-on-surface focus:ring-0 focus:border-primary transition-colors" id="password" name="password" placeholder="••••••••" required="" type="password">
+</div>
+<div class="flex justify-end mt-2">
+<a class="font-body-sm text-body-sm text-neptune-indigo hover:text-primary transition-colors" href="#">Forgot Security Key?</a>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full bg-streak-flame hover:bg-[#E64A19] text-on-error rounded-lg py-3 px-6 font-headline-md text-[16px] flex items-center justify-center gap-2 transition-transform active:scale-95" type="submit">
+                            Commence Mission
+                            <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+</div>
+</form>
+<div class="mt-8 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">New operative? <a class="text-neptune-indigo hover:text-primary font-bold" href="#">Request Access</a></p>
+</div>
+</div>
+</section>
+<!-- Right Side: Illustration / Visual -->
+<section class="hidden md:flex flex-1 login-gradient relative overflow-hidden items-center justify-center">
+<!-- Abstract Space Illustration elements -->
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 60%);"></div>
+<div class="relative w-full max-w-2xl px-margin-lg z-10 flex flex-col items-center">
+<!-- Using a placeholder for the requested vibrant illustration -->
+<div class="bg-cover bg-center w-full h-[500px] mb-8 drop-shadow-2xl" data-alt="A highly detailed, vibrant, modern vector illustration of a space exploration scene. Features a stylized rocket soaring towards a glowing, celestial planet with rings, surrounded by abstract geometric stars and constellations. The color palette is dominated by deep cosmic purples, bright indigo, and energetic orange-reds against a rich, dark space background. The style is flat vector art with soft gradients and high-tech corporate educational vibes." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBt9SlqB4-f8d3xJCr0jdec44RsjqgenzzDprbeeuCG0_oUJCNgVsXsL3Z9swvtwRE3Kf2ggmckE37bt67xugjzWNdabZhpV-mgnD2wPTmQI3SFMWNh9XmMKm0mw-TQv_YdJFr7UGSdjelZCWs1EHj4jR6EpuHNIUUqIeZX7g02MXOeK_MZuPz511l4g2sRguRMLmxfOm4NdZG67Um-KGMQ5ryULdy2ZaeWZyoyDGBq2NK6UV3WTndmvw')"></div>
+<div class="text-center text-on-primary max-w-lg">
+<h3 class="font-headline-lg text-headline-lg mb-4">Discover the Universe of Knowledge</h3>
+<p class="font-body-lg text-body-lg opacity-90">Argus LMS provides a unified platform for mission-critical training, operational logs, and interstellar communication protocols.</p>
+</div>
+</div>
+<!-- Decorative floating elements -->
+<span class="material-symbols-outlined absolute top-20 right-20 text-white/10 text-[120px] rotate-12">public</span>
+<span class="material-symbols-outlined absolute bottom-20 left-20 text-white/10 text-[80px] -rotate-12">school</span>
+</section>
+</main>
+</body></html>

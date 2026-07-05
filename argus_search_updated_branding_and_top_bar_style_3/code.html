@@ -1,0 +1,472 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Argus Search - Modern History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200..1000;1,200..1000&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e1e0ff",
+                        "on-secondary-fixed-variant": "#373a9b",
+                        "surface-white": "#FFFFFF",
+                        "jupiter-tan": "#BCAAA4",
+                        "saturn-ring": "#FFE082",
+                        "primary-fixed-dim": "#cfbcff",
+                        "inverse-primary": "#cfbcff",
+                        "neptune-indigo": "#3F51B5",
+                        "streak-flame": "#FF5722",
+                        "on-primary-container": "#cfbcff",
+                        "on-tertiary-container": "#ffb695",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f1f4f9",
+                        "outline": "#7a7581",
+                        "surface-container-high": "#e5e8ed",
+                        "earth-blue": "#2196F3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "mercury-gray": "#9E9E9E",
+                        "on-surface-variant": "#494550",
+                        "on-secondary-container": "#292b8d",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "pluto-frost": "#E1F5FE",
+                        "background": "#f7f9fe",
+                        "surface-tint": "#66529c",
+                        "venus-sulfur": "#FFF176",
+                        "tertiary-container": "#8f3700",
+                        "inverse-surface": "#2d3135",
+                        "tertiary-fixed": "#ffdbcc",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-primary-fixed-variant": "#4e3a82",
+                        "outline-variant": "#cac4d1",
+                        "surface-container-highest": "#dfe3e8",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "surface-bright": "#f7f9fe",
+                        "surface": "#f7f9fe",
+                        "surface-dim": "#d7dadf",
+                        "secondary-container": "#959aff",
+                        "uranus-cyan": "#4DD0E1",
+                        "on-primary": "#ffffff",
+                        "exp-gold": "#F9A825",
+                        "tertiary": "#6a2700",
+                        "surface-variant": "#dfe3e8",
+                        "surface-container": "#ebeef3",
+                        "on-secondary-fixed": "#04006d",
+                        "inverse-on-surface": "#eef1f6",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "primary-fixed": "#e9ddff",
+                        "on-surface": "#181c20",
+                        "on-primary-fixed": "#210755",
+                        "on-tertiary-fixed": "#351000",
+                        "secondary": "#4f54b4",
+                        "mars-red": "#EF5350",
+                        "on-background": "#181c20",
+                        "primary-container": "#5a468f",
+                        "primary": "#422e76"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-md": "24px",
+                        "margin-lg": "40px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "margin-sm": "12px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Hanken Grotesk"],
+                        "body-sm": ["Nunito Sans"],
+                        "headline-lg-mobile": ["Nunito Sans"],
+                        "headline-md": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "stat-exp": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                        "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                        "stat-exp": ["18px", {"lineHeight": "1", "fontWeight": "900"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(224, 230, 237, 0.5);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .scroll-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed" data-mode="connect">
+<!-- Sidebar Navigation -->
+<aside class="h-full w-64 fixed left-0 top-0 flex flex-col h-screen p-base bg-surface-white dark:bg-surface-dim shadow-sm border-r border-outline-variant z-50">
+<div class="mb-8 px-4 py-6 flex flex-col items-center gap-2"><img alt="EuroSchool Logo" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtC1vb1u9TB5rUC4SCROKwWb13eAQ5kl-n9aAhY2Bsv3cT-8UfQeIpQnUnazIUEkpCwlRzwqnmFV8yywT8A1ilUy_xAuf1era0edBtimHHxIX4iaPUuYS9g0uUKVe8szxm4tdZYkHAFa_tAbJgWtA1B0Uap0tHU08fEtmbxYdL8xNChZYbviezeTsfhayRzyE2QJVxQlIU5lIC7dwXfC8eFvNOgOwJJ96Exg_9qSRQ4t1lP8wR0BHXYG92T2VjtrK2BSVBFndYISPQ"></div>
+<nav class="flex-1 space-y-2"><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-body-lg text-body-lg">Dashboard</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">home_work</span><span class="font-body-lg text-body-lg">Home Extension</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">mail</span><span class="font-body-lg text-body-lg">Message Center</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">description</span><span class="font-body-lg text-body-lg">Class Notes</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">menu_book</span><span class="font-body-lg text-body-lg">Curriculum</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">school</span><span class="font-body-lg text-body-lg">Courses</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150 bg-primary/5 text-primary" href="#"><span class="material-symbols-outlined">insights</span><span class="font-body-lg text-body-lg">Performance</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">calendar_today</span><span class="font-body-lg text-body-lg">Calendar</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">payments</span><span class="font-body-lg text-body-lg">Fees</span></a></nav>
+<div class="mt-auto p-4"><div class="space-y-4"><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">settings</span><span class="font-body-lg text-body-lg">Settings</span></a><a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-primary active:scale-95 duration-150" href="#"><span class="material-symbols-outlined">help_outline</span><span class="font-body-lg text-body-lg">Help</span></a><div class="flex justify-center pt-4"></div></div></div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface/80 backdrop-blur-md flex items-center justify-between px-8 z-40 border-b border-outline-variant/30 gap-4 py-4"><div class="flex-1 relative max-w-2xl"><div class="flex items-center bg-surface-container-low border border-outline-variant rounded-full px-4 py-1.5 w-full"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span><input class="bg-transparent border-none focus:ring-0 w-full text-on-surface font-body-sm ml-2 placeholder:text-on-surface-variant/50" id="globalSearch" placeholder="Search lessons, topics..." type="text" value="Modern History"></div></div><div class="flex items-center gap-6"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant/50 bg-surface-container-low"><img alt="Mercury League" class="w-6 h-6 object-contain" src="https://png.pngtree.com/png-clipart/20240903/original/pngtree-mercury-planet-on-transparent-background-png-image_15928464.png"><div class="flex flex-col leading-none"><span class="text-[9px] font-label-caps text-on-surface-variant uppercase">Current League</span><span class="text-[13px] font-heavy text-on-surface">Mercury League</span></div></div><div class="flex items-center gap-4"><div class="flex items-center gap-1 text-streak-flame bg-orange-50 px-3 py-1 rounded-full border border-orange-100"><span class="material-symbols-outlined fill-icon text-[18px]">local_fire_department</span><span class="font-stat-exp text-[16px]">7</span></div><div class="flex items-center gap-1 text-on-surface-variant bg-surface-container-low px-3 py-1 rounded-full border border-outline-variant/30"><img alt="Euros" class="w-[18px] h-[18px] object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP5a7hCcVJsvTp5eHm1EheMIYlNGHKS51KPim2A2RbCq3-qC7CWRrAA35bIaz8b_LZijplTvw5NVK-FlzzhNWpiEnhBjO_CmEGHUD2BZlt7d7gnozbtXt6t4JK2_TnOR_y63-umCakE9T_E7Ulzh-LRHwuKaWeP_lHZuh1b7sjKfmHdvH00GbyOSq-x5JZL-ZmhBXp8qNIriYVC2qwmtrBX471vTjbFYE7gjpNT-StEbnGKd-IrVhIIogHU3eBTqVnu5E"><span class="font-stat-exp text-[15px]">1,000 Euros</span></div><div class="flex flex-col items-end"><span class="text-[13px] font-bold text-on-surface">Jane Doe</span><span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-wider">Grade 12-A</span></div></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors">notifications</span><div class="w-10 h-10 rounded-full bg-outline overflow-hidden border-2 border-white shadow-sm cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all"><img alt="Jane Doe Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLvYq5CdpiqJVI-ZSG49Sah8sw4SQ7ntf_eJ3SQXqMjJhN1NczdBHz5RKuCevKalt6luP_9jmycRUEhjUnz0e6XRUBxOBsUJ7TGCgrb3-vHfhPyyPEy5tzMikHCcgY5-G7sSZhCXeduuZLxb08tTosr4cVvh-ahdC8W9-09vafDWTkEEV07iiuLIe54mXCxns0lK_MZwa47t5m61_91LYasg77e6e1bqBm8n5cmbDmMIPFIqCkuMTbJLz9ZE"></div></div></div></header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-margin-md">
+<!-- Search Header & Context -->
+<section class="mb-margin-md">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-white text-xl">smart_toy</span>
+</div>
+<span class="text-label-caps text-primary font-bold tracking-widest">Essential Search Results<br></span>
+</div><div class="flex items-baseline gap-3">
+<h2 class="font-headline-lg text-headline-lg text-primary">Modern History</h2>
+<span class="text-on-surface-variant font-body-lg text-body-lg">124 results found</span>
+</div>
+<div class="mt-4 flex flex-wrap gap-2">
+<span class="px-4 py-1.5 bg-primary-fixed text-primary font-body-sm text-body-sm rounded-full flex items-center gap-2">
+                    History <span class="material-symbols-outlined text-sm">close</span>
+</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface-variant font-body-sm text-body-sm rounded-full flex items-center gap-2">
+                    Higher Secondary <span class="material-symbols-outlined text-sm">close</span>
+</span>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-margin-md">
+<!-- Filters Sidebar -->
+<aside class="col-span-3 space-y-gutter"><div class="bg-surface-white p-6 rounded-2xl shadow-sm border border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Refine Search</h3>
+<div class="space-y-6">
+<div>
+<p class="text-label-caps text-on-surface-variant font-bold mb-4 tracking-wider uppercase">Content Type</p>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-5 h-5 border-2 border-outline-variant rounded flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary text-sm hidden">check</span>
+</div>
+<span class="font-body-sm text-on-surface">Courses</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-5 h-5 border-2 border-primary rounded flex items-center justify-center bg-primary">
+<span class="material-symbols-outlined text-white text-sm">check</span>
+</div>
+<span class="font-body-sm text-on-surface font-bold">Lessons</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-5 h-5 border-2 border-outline-variant rounded flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary text-sm hidden">check</span>
+</div>
+<span class="font-body-sm text-on-surface">Podcasts</span>
+</label>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant">
+<button class="w-full py-2.5 bg-primary text-white rounded-xl font-label-caps text-label-caps hover:bg-primary-container transition-colors shadow-sm">Apply Filters</button>
+</div>
+</div>
+</div></aside>
+<!-- Results Content -->
+<div class="col-span-9 space-y-margin-lg transition-all"><section class="mb-16">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Top Results</h3>
+<a class="text-primary font-label-caps text-label-caps hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-3 gap-gutter">
+<div class="col-span-2 group relative overflow-hidden rounded-2xl aspect-[16/9] shadow-md hover:shadow-xl transition-all">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsc_R_RiGTw-YVMuyUIotmKyOmtT-D_Ss2pxG-j_lroan6u6UXZjiQ7BCJplnmeX3bYyK_hqF69fLzZVB6DD7haODkjDdmT13HIuhJ7-sHG5Fishx3slQvHl6wASUw6YqKDS1hgp12WFSFlIdZ0RBtzHxogAs2eVcEKLgKplHvG6eKgYKjpfIfpetAkeJescqvEaewRKVzbBs2z26iSkPEF6qo4GyJTuzb08iL0MutFPpKIICA4teh">
+<div class="absolute bottom-0 left-0 p-6 z-20 text-white w-full">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-3 py-1 bg-earth-blue rounded-full text-[10px] font-bold uppercase tracking-widest">Featured Course</span>
+<span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest">4.8 XP Multiplier</span>
+</div>
+<h4 class="font-headline-lg text-headline-lg mb-2">The Industrial Revolution &amp; Beyond</h4>
+<div class="flex items-center gap-4 opacity-90">
+<span class="flex items-center gap-1 font-body-sm text-body-sm"><span class="material-symbols-outlined text-sm">person</span> Jane Doe</span>
+<span class="flex items-center gap-1 font-body-sm text-body-sm"><span class="material-symbols-outlined text-sm">schedule</span> 12 Hours</span>
+</div>
+</div>
+</div>
+<div class="col-span-1 bg-gradient-to-br from-[#210755] to-primary text-white p-6 rounded-2xl flex flex-col justify-between shadow-xl relative overflow-hidden ring-1 ring-white/20">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl mb-4 text-venus-sulfur animate-pulse">auto_awesome</span>
+<h4 class="font-headline-md text-headline-md mb-2 tracking-tight">Argus AI Digest</h4>
+<p class="text-body-sm text-white/90 leading-relaxed">I've summarized the key events of Modern History for your exam tomorrow.</p>
+</div>
+<button class="relative z-10 w-full py-3 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 rounded-xl font-label-caps text-label-caps transition-all active:scale-95 shadow-sm">Generate Flashcards</button>
+</div>
+</div>
+</section>
+<!-- AI Worksheets Section -->
+<section class="mb-16">
+<div class="flex items-center gap-2 mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">L! and L2 Worksheets</h3>
+<div class="px-2 py-1 bg-primary-fixed text-primary rounded text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">smart_toy</span> Newton AI
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="bg-gradient-to-br from-surface-white to-surface-container-low p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="w-10 h-10 bg-surface-container-high rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">description</span>
+</div>
+<button class="text-primary hover:bg-primary-fixed p-2 rounded-full transition-colors"><span class="material-symbols-outlined">download</span></button>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">The Cold War Era Worksheet</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-4">Custom worksheet generated based on your recent searches.</p>
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-on-surface-variant px-2 py-1 bg-surface-container-highest rounded">15 Questions</span>
+<span class="text-xs font-bold text-on-surface-variant px-2 py-1 bg-surface-container-highest rounded">Intermediate</span>
+</div>
+</div>
+<div class="bg-gradient-to-br from-surface-white to-surface-container-low p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="flex items-start justify-between mb-4">
+<div class="w-10 h-10 bg-surface-container-high rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">quiz</span>
+</div>
+<button class="text-primary hover:bg-primary-fixed p-2 rounded-full transition-colors"><span class="material-symbols-outlined">play_arrow</span></button>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Industrial Revolution Quiz</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-4">Quick test to gauge your understanding of 18th-century industrialization.</p>
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-on-surface-variant px-2 py-1 bg-surface-container-highest rounded">10 Questions</span>
+<span class="text-xs font-bold text-on-surface-variant px-2 py-1 bg-surface-container-highest rounded">Beginner</span>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-16">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Courses</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-full bg-surface-container-high text-primary"><span class="material-symbols-outlined">grid_view</span></button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="bg-surface-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAeiARtGNJJTkqwi1YG_yD7GCXAkO7HZnMOo_CbCfbvRXIj-T75sTxJyt0QjNNUcfCggUv7VQxXhCGtZlIou84qJd6DkR8YdJ6BDCY_1Dg_4Zf_U08ObZNzzrV0DT5W3AbzJOX5kUfsi2IScpb_rWaKM1JneiQHrI8uGWcikrMnhKJfSB1-9SonRNXdYPBuHqihuKv3liMCcgC4L9AVfu_-Z9SoCkbT9NlSzt_TPjxJMlvdu1zfveU">
+<div class="absolute top-4 left-4 px-3 py-1 bg-primary text-on-primary rounded-full text-[10px] font-bold shadow-md uppercase tracking-wider">In Progress</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-headline-md text-headline-md mb-1 group-hover:text-primary transition-colors">The Renaissance Era</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6">By John Doe • 18 Modules</p>
+<div class="mt-auto">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">65% Complete</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden mb-6">
+<div class="h-full bg-primary w-[65%] rounded-full"></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-jupiter-tan flex items-center justify-center text-[10px] font-bold">+12</div>
+</div>
+<button class="text-primary font-bold font-body-lg text-body-lg flex items-center gap-1 group/btn">
+Continue <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7PtV2j23XWeQd9kq5Dc8oddjMHHp2FBgPNJJlFLI6rMEATwlGzDFsR7e2lCbJxAstMP4V6g4HaSfP-7P9shdIipGnhNRqQGCB23xpwhrhz6TSpQwA_V0LAoJNifZP6t5rDFkpLXRKKb1IvZxl4z6jsarYhsRaBV3hbfUBJhtOCA62SocjY6GJ50bQLDtn7PWF6nEM9T6I1t--pbW2_8xI3ycoBHF1JBqTQc9zOo5UhFJrdatCd2dA">
+<div class="absolute top-4 left-4 px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-[10px] font-bold shadow-sm uppercase tracking-wider">Not Started</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-headline-md text-headline-md mb-1 group-hover:text-primary transition-colors">World War II Deep Dive</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6">By Jane Doe • 24 Modules</p>
+<div class="mt-auto">
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden mb-6">
+<div class="h-full bg-primary w-0 rounded-full"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-body-sm text-body-sm italic">New Semester Content</span>
+<button class="text-primary font-bold font-body-lg text-body-lg flex items-center gap-1 group/btn">
+Enroll Now <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7PtV2j23XWeQd9kq5Dc8oddjMHHp2FBgPNJJlFLI6rMEATwlGzDFsR7e2lCbJxAstMP4V6g4HaSfP-7P9shdIipGnhNRqQGCB23xpwhrhz6TSpQwA_V0LAoJNifZP6t5rDFkpLXRKKb1IvZxl4z6jsarYhsRaBV3hbfUBJhtOCA62SocjY6GJ50bQLDtn7PWF6nEM9T6I1t--pbW2_8xI3ycoBHF1JBqTQc9zOo5UhFJrdatCd2dA">
+<div class="absolute top-4 left-4 px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-[10px] font-bold shadow-sm uppercase tracking-wider">Not Started</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-headline-md text-headline-md mb-1 group-hover:text-primary transition-colors">The Cold War</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6">By John Doe • 16 Modules</p>
+<div class="mt-auto">
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden mb-6">
+<div class="h-full bg-primary w-0 rounded-full"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-body-sm text-body-sm italic">Recommended</span>
+<button class="text-primary font-bold font-body-lg text-body-lg flex items-center gap-1 group/btn">
+Enroll Now <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAeiARtGNJJTkqwi1YG_yD7GCXAkO7HZnMOo_CbCfbvRXIj-T75sTxJyt0QjNNUcfCggUv7VQxXhCGtZlIou84qJd6DkR8YdJ6BDCY_1Dg_4Zf_U08ObZNzzrV0DT5W3AbzJOX5kUfsi2IScpb_rWaKM1JneiQHrI8uGWcikrMnhKJfSB1-9SonRNXdYPBuHqihuKv3liMCcgC4L9AVfu_-Z9SoCkbT9NlSzt_TPjxJMlvdu1zfveU">
+<div class="absolute top-4 left-4 px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-[10px] font-bold shadow-sm uppercase tracking-wider">Not Started</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="font-headline-md text-headline-md mb-1 group-hover:text-primary transition-colors">The French Revolution</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-6">By Jane Doe • 20 Modules</p>
+<div class="mt-auto">
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden mb-6">
+<div class="h-full bg-primary w-0 rounded-full"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-body-sm text-body-sm italic">Core Curriculum</span>
+<button class="text-primary font-bold font-body-lg text-body-lg flex items-center gap-1 group/btn">
+Enroll Now <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-16">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Individual Lessons</h3>
+<div class="bg-surface-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="divide-y divide-outline-variant">
+<div class="p-5 hover:bg-surface-container-low transition-colors flex items-center gap-4 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">play_circle</span>
+</div>
+<div class="flex-1">
+<h5 class="font-body-lg text-body-lg font-bold group-hover:text-primary transition-colors">The Fall of the Berlin Wall</h5>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Video Lesson • 14:20 • History 101</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-exp-gold font-bold font-stat-exp text-stat-exp">+50 XP</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">Potential</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+</div>
+<div class="p-5 hover:bg-surface-container-low transition-colors flex items-center gap-4 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl">menu_book</span>
+</div>
+<div class="flex-1">
+<h5 class="font-body-lg text-body-lg font-bold group-hover:text-primary transition-colors">De-colonization in Southeast Asia</h5>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Reading • 12 mins read • Political Science</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-exp-gold font-bold font-stat-exp text-stat-exp">+35 XP</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">Potential</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+</div>
+<div class="p-5 hover:bg-surface-container-low transition-colors flex items-start gap-4 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0 mt-1">
+<span class="material-symbols-outlined text-3xl">podcasts</span>
+</div>
+<div class="flex-1">
+<h5 class="font-body-lg text-body-lg font-bold group-hover:text-primary transition-colors">The Industrial Revolution in Depth</h5>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-3">Podcast • 45:00 • History Daily</p>
+<div class="space-y-1">
+<div class="flex items-center gap-2 text-sm">
+<span class="text-primary font-bold bg-primary-fixed px-1.5 rounded">02:15</span>
+<span class="text-on-surface-variant">The Steam Engine</span>
+</div>
+<div class="flex items-center gap-2 text-sm">
+<span class="text-primary font-bold bg-primary-fixed px-1.5 rounded">08:45</span>
+<span class="text-on-surface-variant">Urbanization</span>
+</div>
+<div class="flex items-center gap-2 text-sm">
+<span class="text-primary font-bold bg-primary-fixed px-1.5 rounded">15:30</span>
+<span class="text-on-surface-variant">Labor Movements</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6 self-center">
+<div class="text-right">
+<p class="text-exp-gold font-bold font-stat-exp text-stat-exp">+80 XP</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">Potential</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+</div>
+<div class="p-5 hover:bg-surface-container-low transition-colors flex items-center gap-4 group cursor-pointer">
+<div class="w-14 h-14 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">play_circle</span>
+</div>
+<div class="flex-1">
+<h5 class="font-body-lg text-body-lg font-bold group-hover:text-primary transition-colors">The Space Race</h5>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Video Lesson • 22:15 • Modern History</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="text-exp-gold font-bold font-stat-exp text-stat-exp">+65 XP</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">Potential</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+</div>
+</div>
+</div>
+</section></div>
+</div>
+</main>
+<!-- Floating Action Button (Global Contextual Action) -->
+<script>
+        // Simple Micro-interaction for result cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential hover effects via JS if needed
+            });
+        });
+
+        // Mock Search Auto-complete suggestion interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            if(e.target.value.length > 3) {
+                console.log('Fetching intelligent suggestions for:', e.target.value);
+            }
+        });
+    </script>
+<div class="fixed right-margin-md z-50 flex flex-col items-end gap-2 pointer-events-none bottom-8"><div class="bg-surface-white px-4 py-2 rounded-xl shadow-xl border border-outline-variant animate-pulse pointer-events-auto"><p class="text-[10px] font-bold text-primary">Newton sees what you see — ask anything about this page.</p></div><button class="w-16 h-16 backdrop-blur-xl bg-white/10 border border-white/30 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all pointer-events-auto hover:bg-white/20">
+<img alt="Newton AI" class="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCanAAy0A9BSHA9RMfMNDLxPSNrBau4xWg87xbtL8KPJL4eoK3cv_GMQD12QekrcUopCXxYKAFHmylyOWNZsmW0Uhm11a-tdDtd9sW7UuiSQWw-VOYm6XCaRqOCYWidOnnE7j9d3HmbYgEGg4v9hQtNDdQl43nmKVJDG7305bXkfjAteuk3ynEs76AEVU_zV_bGJFFJIiC71J8v1JsQttVjfVa7zgQuJyaNRtidNI81V2532gydwsMaQ1y8Y06aqEgaw7U">
+</button></div>
+
+
+</body></html>

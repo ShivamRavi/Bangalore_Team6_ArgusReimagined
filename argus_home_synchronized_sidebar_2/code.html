@@ -1,0 +1,288 @@
+<!DOCTYPE html><html class="light" lang="en" style="width: 1361px; height: 1024px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Argus - Cosmic Minimalist Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@700&amp;family=Nunito+Sans:wght@400;700;800;900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "on-tertiary-container": "#ffb695",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-white": "#FFFFFF",
+                        "surface-dim": "#d7dadf",
+                        "on-primary-fixed-variant": "#4e3a82",
+                        "outline": "#7a7581",
+                        "inverse-surface": "#2d3135",
+                        "surface-variant": "#dfe3e8",
+                        "on-primary-container": "#cfbcff",
+                        "primary-container": "#5a468f",
+                        "on-primary": "#ffffff",
+                        "earth-blue": "#2196F3",
+                        "secondary": "#4f54b4",
+                        "jupiter-tan": "#BCAAA4",
+                        "tertiary-fixed": "#ffdbcc",
+                        "neptune-indigo": "#3F51B5",
+                        "on-surface-variant": "#494550",
+                        "pluto-frost": "#E1F5FE",
+                        "surface-container-highest": "#dfe3e8",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "streak-flame": "#FF5722",
+                        "primary-fixed": "#e9ddff",
+                        "saturn-ring": "#FFE082",
+                        "outline-variant": "#cac4d1",
+                        "surface-tint": "#66529c",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#ebeef3",
+                        "exp-gold": "#F9A825",
+                        "inverse-primary": "#cfbcff",
+                        "on-background": "#181c20",
+                        "surface-container-high": "#e5e8ed",
+                        "inverse-on-surface": "#eef1f6",
+                        "primary": "#422e76",
+                        "surface": "#f7f9fe",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#8f3700",
+                        "secondary-fixed": "#e1e0ff",
+                        "mercury-gray": "#9E9E9E",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#959aff",
+                        "mars-red": "#EF5350",
+                        "uranus-cyan": "#4DD0E1",
+                        "on-secondary-container": "#292b8d",
+                        "background": "#f7f9fe",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-surface": "#181c20",
+                        "venus-sulfur": "#FFF176",
+                        "surface-container-low": "#f1f4f9",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f7f9fe",
+                        "primary-fixed-dim": "#cfbcff",
+                        "on-secondary-fixed": "#04006d",
+                        "tertiary": "#6a2700",
+                        "on-secondary-fixed-variant": "#373a9b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#210755"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-sm": "12px",
+                        "margin-md": "24px",
+                        "margin-lg": "40px",
+                        "gutter": "16px",
+                        "base": "8px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "stat-exp": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "headline-md": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "body-sm": ["Nunito Sans"],
+                        "headline-lg-mobile": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "stat-exp": ["18px", { "lineHeight": "1", "fontWeight": "900" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "1.4", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Target the specific heavy padding in the shared component to make it work as a sidebar */
+        .sidebar-wrapper > div > div > .px-40 {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        .sidebar-wrapper > div > div > .max-w-\[960px\] {
+            max-width: 100% !important;
+        }
+        
+        /* Cosmic gradient animation */
+        @keyframes slow-drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        .animate-nebula {
+            animation: slow-drift 15s ease-in-out infinite;
+        }
+        .animate-nebula-delayed {
+            animation: slow-drift 18s ease-in-out infinite reverse;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-surface bg-surface flex h-screen w-full overflow-hidden selection:bg-primary/20 selection:text-primary" data-mode="connect">
+<!-- Left Sidebar (Shared Component Wrapper) -->
+<aside class="w-[280px] h-full shrink-0 border-r border-outline-variant/30 hidden lg:block sidebar-wrapper z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)] bg-surface-white"><div class="flex flex-col h-full w-full bg-surface-white">
+<div class="flex items-center gap-3 border-b border-outline-variant/30 px-6 py-4">
+<img alt="EuroSchool Logo" class="h-10 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtf6ZPV6nV1oShvX1bmR9Chh7zZkVO_4IFS05CQVR5DDRxWnZ65toic3OKSqqIVCu4C1_i-1xIYrXE1SFIzPt8THbrOjsxNNTIzrSL21HWu3SQUs3FPy3MvhvbI-Rj8MnJc5AGn1Z6nCGRmgROFwlD6ah7Ok38rVxTKTR830JRLwxb0lx01Pia9sOyO6QI1yJWdrZ-mbmVPAonEbygsqSNFNBKp3003Ooq6QsuA4Rpvwj2rbteyYtS2NE0_UEUiPpyNms9KwFvDHKc">
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto px-2 pt-4">
+<a class="bg-primary-fixed text-on-primary-fixed font-bold rounded-lg mx-2 px-4 py-3 flex items-center gap-3 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined fill-icon">dashboard</span>
+<span class="font-body-sm font-bold">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">home_app_logo</span>
+<span class="font-body-sm font-bold">Home Extension</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-body-sm font-bold">Message Center</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-sm font-bold">Class Notes</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-body-sm font-bold">Curriculum</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-body-sm font-bold">Courses</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-body-sm font-bold">Performance</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-sm font-bold">Calendar</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg mx-2 px-4 py-3 flex items-center gap-3 active:scale-95" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-sm font-bold">Fees</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant p-4">
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg px-4 py-3 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-sm font-bold">Help &amp; Support</span>
+</a>
+</div>
+</div></aside>
+<!-- Main Content Area - Cosmic Minimalist -->
+<main class="flex-1 relative flex flex-col items-center justify-center overflow-hidden bg-surface-bright"><header class="fixed top-0 right-0 left-[280px] h-16 bg-surface-white flex items-center justify-between px-8 z-40 border-b border-outline-variant/30 gap-4 py-4">
+<div class="flex-1 relative max-w-lg">
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded-full px-4 py-1.5 w-full">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface font-body-sm ml-2 placeholder:text-on-surface-variant/50" id="globalSearch" placeholder="Search for anything..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant/50 bg-surface-container">
+<img alt="Mercury League" class="w-6 h-6 object-contain" src="https://png.pngtree.com/png-clipart/20240903/original/pngtree-mercury-planet-on-transparent-background-png-image_15928464.png">
+<div class="flex flex-col leading-none">
+<span class="text-[9px] font-label-caps text-on-surface-variant uppercase">Current League</span>
+<span class="text-[13px] font-bold text-on-surface">Mercury League</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-streak-flame bg-orange-50 px-3 py-1 rounded-full border border-orange-100">
+<span class="material-symbols-outlined fill-icon text-[18px]">local_fire_department</span>
+<span class="font-stat-exp text-[16px]">7</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant px-3 py-1 rounded-full border border-outline-variant/30 bg-surface-container">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4hU_zV3w6GfEMbDofjehmO6CN-9ZE0qYGhtq510SpHrhMMWP2t1MSAZue2pHLvFXUJF99rgGS17tFbkfgSLc76ljkciIiJQ9XIKTXunzHpkP5tK_hZ5yLzwjkz9iL5N5nuXLs7zxcI6CC-Iyydr3pUIsy8_5c8J0Efq6SX-adxgxo9btSMcNionwCM3dsHSB97UlunwfyybeMPkninGxI76NhXQrjT1GvO-QNsrhDY5jOdmELOettZSygEhgu_5uJjks" alt="Euros" class="w-[18px] h-[18px] object-contain">
+<span class="font-stat-exp text-[15px]">1,000 Euros</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors">notifications</span>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<div class="flex flex-col items-end">
+<p class="text-sm font-bold text-on-surface">Alex Johnson</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Grade 10-A</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">AJ</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Cosmic/Nebula Background Elements -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-fixed/20 via-surface-bright to-surface-bright">
+<!-- Subtle Nebula Orbs -->
+<div class="absolute top-[-10%] left-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-primary-fixed-dim/40 rounded-full blur-[100px] mix-blend-multiply opacity-60 animate-nebula"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] bg-secondary-fixed/30 rounded-full blur-[120px] mix-blend-multiply opacity-50 animate-nebula-delayed"></div>
+<div class="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-tertiary-fixed/20 rounded-full blur-[80px] mix-blend-multiply opacity-40 animate-nebula"></div>
+<!-- Planetary Arc Watermark -->
+<div class="absolute -bottom-[614px] -left-[20vw] w-[140vw] h-[140vw] rounded-full border-[1px] border-outline-variant/30 shadow-[inset_0_0_120px_rgba(var(--primary-container),0.03)] opacity-50"></div>
+</div>
+<!-- Central Focused UI -->
+<div class="relative z-10 w-full max-w-[800px] px-8 flex flex-col items-center transform -translate-y-12">
+<!-- Brand/Theme Title (Subtle) -->
+<div class="mb-margin-lg flex flex-col items-center gap-2 opacity-80">
+<span class="material-symbols-outlined text-4xl text-primary font-light">language</span>
+<h2 class="text-headline-md text-on-surface-variant font-light tracking-wide">Essential Search</h2>
+</div>
+<!-- The Essential Search Bar -->
+<div class="w-full relative group">
+<div class="absolute inset-y-0 left-8 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant group-focus-within:text-primary transition-colors duration-300 text-[32px]">search</span>
+</div>
+<input class="w-full h-[88px] pl-[88px] pr-8 text-headline-md bg-surface-container-lowest/80 backdrop-blur-md border border-outline-variant/40 rounded-full shadow-[0_8px_32px_-8px_rgba(var(--primary),0.08)] focus:outline-none focus:border-primary/50 focus:ring-4 focus:ring-primary-container/30 transition-all duration-300 placeholder:text-outline-variant/70 text-on-surface hover:shadow-[0_12px_48px_-12px_rgba(var(--primary),0.12)] hover:border-outline-variant/60 hover:bg-surface-container-lowest" placeholder="What would you like to learn today?" type="text">
+<!-- Inner soft glow -->
+<div class="absolute inset-0 rounded-full shadow-[inset_0_0_40px_rgba(var(--primary),0.03)] pointer-events-none group-focus-within:shadow-[inset_0_0_40px_rgba(var(--primary),0.08)] transition-shadow duration-300"></div>
+</div>
+<!-- Interaction Hint Tooltip -->
+<div class="mt-margin-md px-6 py-2.5 rounded-full bg-surface-container/50 backdrop-blur-sm border border-outline-variant/20 flex items-center gap-2 text-on-surface-variant text-body-sm opacity-0 translate-y-4 animate-[fade-in-up_0.6s_ease-out_0.5s_forwards] cursor-pointer hover:bg-surface-container hover:text-on-surface transition-all duration-200 hover:shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-exp-gold">lightbulb</span>
+<span class="">Try typing <span class="font-bold text-primary">"World War 2"</span></span>
+</div>
+</div>
+</main>
+<style>
+        @keyframes fade-in-up {
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+        }
+    </style>
+<script>
+        // Simple micro-interaction for the search bar to focus on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainInput = document.querySelector('main input[type="text"]');
+            if(mainInput) {
+                // Focus the main search input after a short delay for dramatic effect
+                setTimeout(() => {
+                    mainInput.focus();
+                }, 800);
+            }
+        });
+    </script>
+
+
+
+
+</body></html>
