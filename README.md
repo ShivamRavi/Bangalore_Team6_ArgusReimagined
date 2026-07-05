@@ -1,5 +1,5 @@
 # Argus
-
+IMPORTANT: THIS IS CURRENT A BLUEPRINT SORT OF, MOST WORK IS DONE< BUT CONTEXT AWARE AI, POSTGRE SQL and tieing togethier is stilll tbd, so the app will proable not work, you can summarize the files though and run the tests, sry for incovenience**
 > **An Intelligent, Event-Driven Gamified LMS Backend**
 
 Argus is a state-aware educational technology backend designed to treat student engagement as a real-time data stream. By combining an event-sourced architecture with a multi-modal AI Copilot, Argus delivers a deeply gamified, intensely competitive, and instantly responsive learning platform.
