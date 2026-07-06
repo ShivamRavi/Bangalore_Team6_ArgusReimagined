@@ -57,7 +57,7 @@ async def get_es_client() -> AsyncElasticsearch:
     """
     global _es_client
     if _es_client is None:
-        _es_client = AsyncElasticsearch([settings.ELASTICSEARCH_URL])
+        _es_client = AsyncElasticsearch([settings.ELASTICSEARCH_URL], headers={"Accept": "application/json", "Content-Type": "application/json"})
     return _es_client
 
 
@@ -119,7 +119,11 @@ async def index_document(es: AsyncElasticsearch, doc: Dict[str, Any]) -> None:
     """
     # Determine the text to embed – fall back to an empty string if missing.
     text = doc.get("content") or doc.get("text") or ""
-    vector = _EMBEDDER.encode(text).tolist()
+    vector = _EMBEDDER.encode(text)
+    if hasattr(vector, "tolist"):
+        vector = vector.tolist()
+    else:
+        vector = list(vector)
     body = {**doc, "text_vector": vector}
     await es.index(index=INDEX_NAME, document=body)
 

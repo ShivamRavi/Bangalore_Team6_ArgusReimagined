@@ -1,4 +1,6 @@
-import asyncio
+import sys, os, asyncio
+# Ensure backend package is importable
+sys.path.append(os.path.abspath('backend'))
 import pytest
 import pytest_asyncio
 from typing import AsyncGenerator, Generator
