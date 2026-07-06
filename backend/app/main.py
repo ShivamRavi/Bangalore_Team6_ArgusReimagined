@@ -30,14 +30,14 @@ async def lifespan(app: FastAPI):
     async with async_session() as db:
         if await seed_houses_and_sections(db):
             logger.info("Database seeded with default Houses and Sections.")
-    # Initialize Elasticsearch index if needed
-if get_es_client and init_index:
-    try:
-        es = await get_es_client()
-        await init_index(es)
-        logger.info("Elasticsearch index ensured on startup.")
-    except Exception as e:
-        logger.error("Failed to initialize Elasticsearch index: %s", e)
+        # Initialize Elasticsearch index if needed
+    if get_es_client and init_index:
+        try:
+            es = await get_es_client()
+            await init_index(es)
+            logger.info("Elasticsearch index ensured on startup.")
+        except Exception as e:
+            logger.error("Failed to initialize Elasticsearch index: %s", e)
     yield
     # Cleanup on shutdown
     await engine.dispose()
