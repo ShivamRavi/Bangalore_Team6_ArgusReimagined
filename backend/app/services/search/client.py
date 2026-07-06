@@ -20,7 +20,10 @@ from typing import Any, Dict, List
 
 from elasticsearch import AsyncElasticsearch
 from elasticsearch.exceptions import NotFoundError
-from sentence_transformers import SentenceTransformer
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
 
 # Load configuration – the project already defines ``ELASTICSEARCH_URL`` in
 # ``backend/app/config.py``. Importing the settings module ensures we respect any
@@ -30,7 +33,13 @@ from sentence_transformers import SentenceTransformer
 from ...config import settings
 
 # Initialise the embedding model once – it is thread‑safe for inference.
-_EMBEDDER = SentenceTransformer("all-MiniLM-L6-v2")
+if SentenceTransformer:
+    _EMBEDDER = SentenceTransformer("all-MiniLM-L6-v2")
+else:
+    class _DummyEmbedder:
+        def encode(self, text):
+            return [0.0] * 384
+    _EMBEDDER = _DummyEmbedder()
 
 # ---------------------------------------------------------------------------
 # Elasticsearch client handling

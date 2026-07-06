@@ -1,4 +1,6 @@
 # Argus Reimagined V2
+
+![Python 3.11](https://img.shields.io/badge/python-3.11-blue)
 ---
 
 **An Intelligent, Event-Driven Gamified LMS Backend**
@@ -6,6 +8,19 @@
 Argus is a state-aware educational technology backend designed to treat student engagement as a real-time data stream. By combining an event-sourced architecture with a multi-modal AI Copilot, Argus delivers a deeply gamified, intensely competitive, and instantly responsive learning platform.
 
 A modern educational platform built with a **FastAPI** backend, **Tailwind CSS** powered frontend, and a **local Elasticsearch** hybrid (BM25 + vector) search service.
+
+## Table of Contents
+- [Platform Features](#platform-features)
+- [Technical Architecture](#technical-architecture)
+- [Getting Started](#getting-started)
+  - [Requirements](#requirements)
+  - [Setup and Run](#setup-and-run)
+  - [Enabling Search](#enabling-search)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Notes](#notes)
+- [Running Tests](#running-tests)
+- [Contributing](#contributing)
 
 ---
 
@@ -54,7 +69,7 @@ The platform relies on a reactive, async-first stack to handle high concurrency.
 | Component | Technology | Purpose |
 | --- | --- | --- |
 | **API Framework** | FastAPI (Python) | High-concurrency async endpoints and WebSocket state injection. |
-| **Primary Database** | PostgreSQL (SQLAlchemy 2.0) | Strict ACID compliance with `SELECT ... FOR UPDATE` row-level locking. |
+| **Primary Database** | SQLite (SQLAlchemy async) | Simple file‑based DB used by default; can be swapped for PostgreSQL via `DATABASE_URL`. |
 | **Event Bus & Cache** | Redis Streams | Pub/Sub event broadcasting, active session state, and leaderboard caching. |
 | **Background Workers** | Celery | Async tasks for audio transcription, index flattening, and rank rebalancing. |
 | **Search Engine** | Elasticsearch + Qdrant | Hybrid vector and keyword retrieval. |
@@ -90,6 +105,17 @@ The platform relies on a reactive, async-first stack to handle high concurrency.
    docker compose up -d elasticsearch  # Optional, if Docker is available
    uvicorn backend.app.main:app --reload
    ```
+
+## Contributing
+
+Contributions are welcome! Fork the repository, create a feature branch, and open a pull request. Please ensure any new code follows the existing style guidelines and includes appropriate tests.
+
+## Enabling Search
+
+To enable hybrid search functionality:
+
+- Ensure Elasticsearch is running (`docker compose up -d elasticsearch`).
+- Uncomment the search router import and inclusion in `backend/app/api/v1/router.py`.
 
 3. **Access the application**:
    - API: http://localhost:8000/
@@ -132,3 +158,14 @@ CORS_ORIGINS=["*"]
 
 - Without Docker, Elasticsearch won't be available and search features will return empty results
 - Sample data is seeded automatically during first run
+
+## Running Tests
+
+- Quick integration test (makes a health check, registers a user, logs in, and fetches the profile):
+  ```bash
+  python test_api.py
+  ```
+- If a pytest suite exists, run the full test suite:
+  ```bash
+  pytest
+  ```
