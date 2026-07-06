@@ -1,41 +1,5 @@
 # Argus Reimagined V2
-
-## Overview
-
-A modern educational platform built with a **FastAPI** backend, **Tailwind CSS** powered frontend, and a **local Elasticsearch** hybrid (BM25 + vector) search service.
-
-
-## API Documentation
-
-The FastAPI backend automatically generates OpenAPI docs. Once the services are running, visit:
-
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
-### Search Endpoint
-
-```text
-GET /api/v1/search?q={query}
-```
-
-**Parameters**
-- `q` (string, required): Search query.
-
-**Response** (JSON)
-```json
-{
-  "q": "your query",
-  "results": [
-    {
-      "id": "worksheet-1",
-      "title": "Planetary Math Worksheet",
-      "description": "Practice core math concepts related to planets and space.",
-      "type": "worksheet"
-    }
-    // ... more results
-  ]
-}
-```
+---
 
 **An Intelligent, Event-Driven Gamified LMS Backend**
 
