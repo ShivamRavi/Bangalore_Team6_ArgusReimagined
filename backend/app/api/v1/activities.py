@@ -13,6 +13,7 @@ from app.models.activity_completion import ActivityCompletion
 from app.models.transaction import Transaction, CurrencyType
 from app.models.user import User
 from app.core.constants import (
+    ActivityType,
     EURO_REWARD_WORKSHEET, EURO_REWARD_QUIZ, EURO_REWARD_CYP,
     EURO_REWARD_PODCAST_BASE, EURO_REWARD_PODCAST_ENGAGED,
     EURO_REWARD_VIDEO_BASE, EURO_REWARD_VIDEO_DISTRACTED,
@@ -105,6 +106,10 @@ async def complete_activity(
         amount=euros_awarded,
         reason=reason,
     )
+
+    if euros_awarded > 0:
+        user.euros_balance += euros_awarded
+        user.lifetime_euros += euros_awarded
 
     db.add(tx)
 
