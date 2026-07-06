@@ -1,9 +1,10 @@
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
@@ -77,6 +78,24 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # Include Router
 app.include_router(api_router, prefix="/api/v1")
+
+frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
+
+
+@app.get("/", include_in_schema=False)
+async def serve_index():
+    return FileResponse(frontend_dir / "index.html")
+
+
+@app.get("/dashboard", include_in_schema=False)
+async def serve_dashboard():
+    return FileResponse(frontend_dir / "dashboard.html")
+
+
+@app.get("/app.js", include_in_schema=False)
+async def serve_frontend_script():
+    return FileResponse(frontend_dir / "app.js")
+
 
 @app.get("/healthz", tags=["system"])
 async def health_check():

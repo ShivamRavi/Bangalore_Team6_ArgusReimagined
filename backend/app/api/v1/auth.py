@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -20,9 +20,16 @@ from app.schemas.user import UserResponse
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
-async def register(request: RegisterRequest, db: AsyncSession = Depends(get_db)):
+async def register(request: Request, db: AsyncSession = Depends(get_db)):
+    try:
+        payload_data = await request.json()
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid JSON body") from exc
+
+    payload = RegisterRequest.model_validate(payload_data)
+
     # 1. Check if user already exists
-    existing_query = select(User).where(User.username == request.username)
+    existing_query = select(User).where(User.username == payload.username)
     existing_result = await db.execute(existing_query)
     if existing_result.scalars().first() is not None:
         raise HTTPException(
@@ -30,31 +37,58 @@ async def register(request: RegisterRequest, db: AsyncSession = Depends(get_db))
             detail="Username already registered"
         )
 
-    # 2. Check house and section existence if role is STUDENT
-    if request.role == "STUDENT":
-        house_query = select(House).where(House.id == request.house_id)
-        house_result = await db.execute(house_query)
-        if house_result.scalars().first() is None:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"House with ID {request.house_id} does not exist"
-            )
-            
-        section_query = select(Section).where(Section.id == request.section_id)
-        section_result = await db.execute(section_query)
-        if section_result.scalars().first() is None:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Section with ID {request.section_id} does not exist"
-            )
+    explicitly_requested_student_role = bool(payload_data.get("role") == "STUDENT")
+
+    # 2. Resolve house/section for STUDENT accounts or fall back to the first seeded defaults.
+    if payload.role == "STUDENT":
+        if explicitly_requested_student_role and payload.house_id is None:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="house_id is required for STUDENT role")
+        if explicitly_requested_student_role and payload.section_id is None:
+            raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="section_id is required for STUDENT role")
+
+        if payload.house_id is None:
+            house_result = await db.execute(select(House).order_by(House.id).limit(1))
+            default_house = house_result.scalars().first()
+            if default_house is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="No houses are available for registration"
+                )
+            payload.house_id = default_house.id
+        else:
+            house_query = select(House).where(House.id == payload.house_id)
+            house_result = await db.execute(house_query)
+            if house_result.scalars().first() is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"House with ID {payload.house_id} does not exist"
+                )
+
+        if payload.section_id is None:
+            section_result = await db.execute(select(Section).order_by(Section.id).limit(1))
+            default_section = section_result.scalars().first()
+            if default_section is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="No sections are available for registration"
+                )
+            payload.section_id = default_section.id
+        else:
+            section_query = select(Section).where(Section.id == payload.section_id)
+            section_result = await db.execute(section_query)
+            if section_result.scalars().first() is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"Section with ID {payload.section_id} does not exist"
+                )
 
     # 3. Create user
     user = User(
-        username=request.username,
-        hashed_password=hash_password(request.password),
-        role=request.role,
-        house_id=request.house_id,
-        section_id=request.section_id,
+        username=payload.username,
+        hashed_password=hash_password(payload.password),
+        role=payload.role,
+        house_id=payload.house_id,
+        section_id=payload.section_id,
         euros_balance=0,
         lifetime_euros=0,
         current_planet="Mercury",
@@ -125,11 +159,7 @@ async def refresh(request: RefreshRequest, db: AsyncSession = Depends(get_db)):
     return TokenResponse(access_token=access_token, refresh_token=refresh_token)
 
 
-@router.get("/me", response_model=UserResponse)
-async def get_me(current_user: User = Depends(get_current_user)):
-    # Map to schema manually or let Pydantic handle it.
-    # Note that joined relations house and section are eagerly loaded,
-    # so we can access current_user.house.name / current_user.section.name without lazy load errors.
+def _serialize_user(current_user: User) -> UserResponse:
     return UserResponse(
         id=current_user.id,
         username=current_user.username,
@@ -143,8 +173,18 @@ async def get_me(current_user: User = Depends(get_current_user)):
         current_planet=current_user.current_planet,
         current_streak=current_user.current_streak,
         last_active_at=current_user.last_active_at,
-        created_at=current_user.created_at
+        created_at=current_user.created_at,
     )
+
+
+@router.get("/me", response_model=UserResponse)
+async def get_me(current_user: User = Depends(get_current_user)):
+    return _serialize_user(current_user)
+
+
+@router.get("/users/me", response_model=UserResponse)
+async def get_user_me(current_user: User = Depends(get_current_user)):
+    return _serialize_user(current_user)
 
 
 @router.post("/otp-login")
