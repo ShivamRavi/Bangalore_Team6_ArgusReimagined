@@ -82,6 +82,7 @@ The platform relies on a reactive, async-first stack to handle high concurrency.
 ### Requirements
 - Python 3.11+
 - Docker (Optional, for Elasticsearch)
+- PostgreSQL (Optional, via Docker)
 
 ### Setup and Run
 

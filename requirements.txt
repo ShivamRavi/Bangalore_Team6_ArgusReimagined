@@ -3,6 +3,7 @@ sentence-transformers
 python-jose[cryptography]
 uvicorn[standard]
 SQLAlchemy[asyncio]
+asyncpg
 aiosqlite
 pydantic-settings
 python-dotenv
