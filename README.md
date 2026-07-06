@@ -5,7 +5,7 @@
 A modern educational platform built with a **FastAPI** backend, **Tailwind CSS** powered frontend, and a **local Elasticsearch** hybrid (BM25 + vector) search service.
 
 ---
-
+IMP: MY PUSH ISNT WORKING < THIS IS OLD!
 ## Docker Compose
 
 ```yaml
