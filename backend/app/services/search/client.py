@@ -80,10 +80,7 @@ async def init_index(es: AsyncElasticsearch) -> None:
     * ``title`` / ``content`` – full‑text searchable fields.
     * ``start_time`` / ``end_time`` – optional date fields.
     """
-    exists = await es.indices.exists(index=INDEX_NAME)
-    if exists:
-        return
-
+    # Attempt to create the index; ignore errors if it already exists
     mapping: Dict[str, Any] = {
         "mappings": {
             "properties": {
@@ -91,7 +88,7 @@ async def init_index(es: AsyncElasticsearch) -> None:
                 "text_vector": {
                     "type": "dense_vector",
                     "dims": 384,
-                    "index": True,
+                    # "index": True,  # removed to comply with ES mapping
                     "similarity": "cosine",
                 },
                 "username": {"type": "keyword"},
@@ -103,7 +100,11 @@ async def init_index(es: AsyncElasticsearch) -> None:
             }
         }
     }
-    await es.indices.create(index=INDEX_NAME, body=mapping)
+    try:
+        await es.indices.create(index=INDEX_NAME, body=mapping)
+    except Exception:
+        # Index may already exist; ignore
+        pass
 
 
 # ---------------------------------------------------------------------------

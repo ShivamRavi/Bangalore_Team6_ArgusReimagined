@@ -19,4 +19,5 @@ async def run():
             # try to get detailed error if any
             pass
 
-asyncio.run(run())
+if __name__ == "__main__":
+    asyncio.run(run())
