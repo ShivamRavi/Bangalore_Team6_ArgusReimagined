@@ -8,21 +8,21 @@ async def health_check(client):
     print('Health:', r.json())
 
 async def register_user(client, username='testuser', password='testpass'):
-    payload = {'username': username, 'password': password, 'role': 'STUDENT'}
+    payload = {'username': username, 'password': password, 'role': 'STAFF'}
     r = await client.post('/api/v1/auth/register', json=payload)
-    print('Register status:', r.status_code, r.json())
+    print('Register status:', r.status_code, r.text)
     return r.json()['access_token']
 
 async def login_user(client, username='testuser', password='testpass'):
     data = {'username': username, 'password': password}
     r = await client.post('/api/v1/auth/login', data=data)
-    print('Login status:', r.status_code, r.json())
+    print('Login status:', r.status_code, r.text)
     return r.json()['access_token']
 
 async def get_me(client, token):
     headers = {'Authorization': f'Bearer {token}'}
     r = await client.get('/api/v1/auth/me', headers=headers)
-    print('Me endpoint:', r.status_code, r.json())
+    print('Me endpoint:', r.status_code, r.text)
 
 async def main():
     async with httpx.AsyncClient(base_url='http://127.0.0.1:8000') as client:
@@ -32,12 +32,4 @@ async def main():
         await get_me(client, token)
 
 if __name__ == '__main__':
-    asyncio.run(main())
-
-async def main():
-    async with httpx.AsyncClient(app=app, base_url="http://testserver") as client:
-        r = await client.get("/healthz")
-        print(json.dumps(r.json()))
-
-if __name__ == "__main__":
     asyncio.run(main())

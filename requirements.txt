@@ -9,4 +9,5 @@ python-dotenv
 httpx
 elasticsearch[async]
 passlib[bcrypt]
+bcrypt
 redis
