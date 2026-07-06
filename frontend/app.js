@@ -28,18 +28,32 @@ async function api(path, options = {}) {
   return data;
 }
 
+async function register(username, password) {
+    const payload = await api('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({
+            username: username,
+            password: password,
+            role: "STUDENT"
+        }),
+    });
+    localStorage.setItem('argus_access_token', payload.access_token);
+    localStorage.setItem('argus_refresh_token', payload.refresh_token);
+    window.location.href = '/dashboard';
+}
+
 async function login(username, password) {
-  const formData = new URLSearchParams();
-  formData.append('username', username);
-  formData.append('password', password);
-  const payload = await api('/auth/login', {
-    method: 'POST',
-    body: formData,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  });
-  localStorage.setItem('argus_access_token', payload.access_token);
-  localStorage.setItem('argus_refresh_token', payload.refresh_token);
-  window.location.href = '/dashboard';
+    const formData = new URLSearchParams();
+    formData.append('username', username);
+    formData.append('password', password);
+    const payload = await api('/auth/login', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+    localStorage.setItem('argus_access_token', payload.access_token);
+    localStorage.setItem('argus_refresh_token', payload.refresh_token);
+    window.location.href = '/dashboard';
 }
 
 async function hydrateDashboard() {
@@ -86,19 +100,65 @@ function logout() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('login-form');
-  if (loginForm) {
-    loginForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      try {
-        await login(username, password);
-      } catch (error) {
-        setMessage(error.message, true);
-      }
-    });
-  }
+    // Add registration toggle
+    const loginTitle = document.querySelector('h2');
+    if (loginTitle && loginTitle.textContent.includes('Welcome back')) {
+        loginTitle.innerHTML = 'Welcome to Argus<br/><button id="toggle-register" class="text-base text-cyan-400 hover:underline">Register instead</button>';
+    }
+    
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            try {
+                await login(username, password);
+            } catch (error) {
+                setMessage(error.message, true);
+            }
+        });
+    }
+    
+    // Add registration toggle handler
+    const toggleRegister = document.getElementById('toggle-register');
+    if (toggleRegister) {
+        toggleRegister.addEventListener('click', () => {
+            const title = document.querySelector('h2');
+            const message = document.getElementById('form-message');
+            if (title.textContent.includes('Welcome back')) {
+                title.innerHTML = 'Create an Argus account';
+                toggleRegister.textContent = 'Login instead';
+                setMessage('Choose a username and password', false);
+                loginForm.id = 'register-form';
+                loginForm.onsubmit = async (event) => {
+                    event.preventDefault();
+                    const username = document.getElementById('username').value.trim();
+                    const password = document.getElementById('password').value;
+                    try {
+                        await register(username, password);
+                    } catch (error) {
+                        setMessage(error.message, true);
+                    }
+                };
+            } else {
+                title.innerHTML = 'Welcome back';
+                toggleRegister.textContent = 'Register instead';
+                if (message) message.textContent = '';
+                loginForm.id = 'login-form';
+                loginForm.onsubmit = async (event) => {
+                    event.preventDefault();
+                    const username = document.getElementById('username').value.trim();
+                    const password = document.getElementById('password').value;
+                    try {
+                        await login(username, password);
+                    } catch (error) {
+                        setMessage(error.message, true);
+                    }
+                };
+            }
+        });
+    }
 
   const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) {

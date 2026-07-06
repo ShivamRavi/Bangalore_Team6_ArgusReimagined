@@ -4,7 +4,7 @@ from typing import Any
 from sqlalchemy.ext.asyncio import AsyncSession
 
 # Import the new Elasticsearch client utilities.
-from .client import get_es_client, init_index, hybrid_search
+from app.services.search.client import get_es_client, init_index, hybrid_search
 
 
 async def search_content(q: str, db: AsyncSession) -> dict[str, Any]:

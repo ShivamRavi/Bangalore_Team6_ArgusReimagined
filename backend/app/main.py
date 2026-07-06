@@ -12,6 +12,7 @@ from app.database import engine, Base, async_session
 from app.middleware.logging import StructuredLoggingMiddleware
 from app.api.v1.router import api_router
 from app.seed import seed_houses_and_sections
+from app.services.search.client import get_es_client, init_index
 
 logger = logging.getLogger("argus_api")
 
@@ -26,6 +27,13 @@ async def lifespan(app: FastAPI):
     async with async_session() as db:
         if await seed_houses_and_sections(db):
             logger.info("Database seeded with default Houses and Sections.")
+    # Initialize Elasticsearch index if needed
+    try:
+        es = await get_es_client()
+        await init_index(es)
+        logger.info("Elasticsearch index ensured on startup.")
+    except Exception as e:
+        logger.error("Failed to initialize Elasticsearch index: %s", e)
     yield
     # Cleanup on shutdown
     await engine.dispose()
@@ -79,7 +87,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 # Include Router
 app.include_router(api_router, prefix="/api/v1")
 
-frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
+frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend"
 
 
 @app.get("/", include_in_schema=False)
