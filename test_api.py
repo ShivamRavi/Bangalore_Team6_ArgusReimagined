@@ -25,7 +25,7 @@ async def get_me(client, token):
     print('Me endpoint:', r.status_code, r.json())
 
 async def main():
-    async with httpx.AsyncClient(app=app, base_url='http://test') as client:
+    async with httpx.AsyncClient(base_url='http://127.0.0.1:8000') as client:
         await health_check(client)
         token = await register_user(client)
         token = await login_user(client)
