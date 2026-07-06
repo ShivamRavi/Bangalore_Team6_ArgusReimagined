@@ -1,0 +1,12 @@
+fastapi[all]
+sentence-transformers
+python-jose[cryptography]
+uvicorn[standard]
+SQLAlchemy[asyncio]
+aiosqlite
+pydantic-settings
+python-dotenv
+httpx
+elasticsearch[async]
+passlib[bcrypt]
+redis

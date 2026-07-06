@@ -12,7 +12,10 @@ from app.database import engine, Base, async_session
 from app.middleware.logging import StructuredLoggingMiddleware
 from app.api.v1.router import api_router
 from app.seed import seed_houses_and_sections
-from app.services.search.client import get_es_client, init_index
+try:
+    from app.services.search.client import get_es_client, init_index
+except ImportError:
+    get_es_client = init_index = None
 
 logger = logging.getLogger("argus_api")
 
@@ -28,6 +31,7 @@ async def lifespan(app: FastAPI):
         if await seed_houses_and_sections(db):
             logger.info("Database seeded with default Houses and Sections.")
     # Initialize Elasticsearch index if needed
+if get_es_client and init_index:
     try:
         es = await get_es_client()
         await init_index(es)
