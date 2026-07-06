@@ -5,6 +5,8 @@
 
 Argus is a state-aware educational technology backend designed to treat student engagement as a real-time data stream. By combining an event-sourced architecture with a multi-modal AI Copilot, Argus delivers a deeply gamified, intensely competitive, and instantly responsive learning platform.
 
+A modern educational platform built with a **FastAPI** backend, **Tailwind CSS** powered frontend, and a **local Elasticsearch** hybrid (BM25 + vector) search service.
+
 ---
 
 ##  Platform Features
@@ -113,11 +115,7 @@ celery -A app.core.celery_app beat --loglevel=info
 
 ```
 =======
-# Argus Reimagined V2
 
-## Overview
-
-A modern educational platform built with a **FastAPI** backend, **Tailwind CSS** powered frontend, and a **local Elasticsearch** hybrid (BM25 + vector) search service.
 
 ---
 
