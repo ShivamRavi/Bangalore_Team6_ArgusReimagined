@@ -54,7 +54,7 @@ The platform relies on a reactive, async-first stack to handle high concurrency.
 | Component | Technology | Purpose |
 | --- | --- | --- |
 | **API Framework** | FastAPI (Python) | High-concurrency async endpoints and WebSocket state injection. |
-| **Primary Database** | PostgreSQL (SQLAlchemy 2.0) | Strict ACID compliance with `SELECT ... FOR UPDATE` row-level locking. |
+| **Primary Database** | (CURRENTLY SQLITE) PostgreSQL (SQLAlchemy 2.0) | Strict ACID compliance with `SELECT ... FOR UPDATE` row-level locking. |
 | **Event Bus & Cache** | Redis Streams | Pub/Sub event broadcasting, active session state, and leaderboard caching. |
 | **Background Workers** | Celery | Async tasks for audio transcription, index flattening, and rank rebalancing. |
 | **Search Engine** | Elasticsearch + Qdrant | Hybrid vector and keyword retrieval. |
