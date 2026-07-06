@@ -4,54 +4,6 @@
 
 A modern educational platform built with a **FastAPI** backend, **Tailwind CSS** powered frontend, and a **local Elasticsearch** hybrid (BM25 + vector) search service.
 
----
-IMP: MY PUSH ISNT WORKING < THIS IS OLD!
-## Docker Compose
-
-```yaml
-version: "3.8"
-services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
-    container_name: es
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports:
-      - "9200:9200"
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
-
-  backend:
-    build: ./backend
-    container_name: backend
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-    ports:
-      - "8000:8000"
-    depends_on:
-      - elasticsearch
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
-
-  frontend:
-    build: ./frontend
-    container_name: frontend
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-
-volumes:
-  esdata:
-```
-
-Run the stack with:
-```bash
-docker compose up -d
-```
-
----
 
 ## API Documentation
 
@@ -84,10 +36,8 @@ GET /api/v1/search?q={query}
   ]
 }
 ```
-<<<<<<< HEAD
-# Argus
-IMPORTANT: THIS IS CURRENT A BLUEPRINT SORT OF, MOST WORK IS DONE< BUT CONTEXT AWARE AI, POSTGRE SQL and tieing togethier is stilll tbd, so the app will proable not work, you can summarize the files though and run the tests, sry for incovenience**
-> **An Intelligent, Event-Driven Gamified LMS Backend**
+
+**An Intelligent, Event-Driven Gamified LMS Backend**
 
 Argus is a state-aware educational technology backend designed to treat student engagement as a real-time data stream. By combining an event-sourced architecture with a multi-modal AI Copilot, Argus delivers a deeply gamified, intensely competitive, and instantly responsive learning platform.
 
