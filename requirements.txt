@@ -9,6 +9,6 @@ pydantic-settings
 python-dotenv
 httpx
 elasticsearch[async]
-passlib[bcrypt]
-bcrypt
+passlib
+
 redis
