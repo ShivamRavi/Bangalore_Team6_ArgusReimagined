@@ -94,7 +94,7 @@ The platform relies on a reactive, async-first stack to handle high concurrency.
 
 2. **Run the setup script** (Windows):
 ```bash
-   setup_and_run.bat
+  
 ```
 
    Or manually:

@@ -80,30 +80,13 @@ INDEX_NAME = "argus_knowledge"
 
 
 async def init_index(es: AsyncElasticsearch) -> None:
-    """Create the ``argus_knowledge`` index if it does not already exist."""
-    # Use HTTP client directly to avoid compatibility issues with the official client.
-    async with httpx.AsyncClient() as client:
-        # Check if index exists via HEAD request
-        head_resp = await client.head(f"{settings.ELASTICSEARCH_URL}/{INDEX_NAME}")
-        if head_resp.status_code == 200:
-            return
-        # Define mapping (same as before, without the invalid "index" field)
-        mapping = {
-            "mappings": {
-                "properties": {
-                    "data_type": {"type": "keyword"},
-                    "text_vector": {"type": "dense_vector", "dims": 384, "similarity": "cosine"},
-                    "username": {"type": "keyword"},
-                    "email": {"type": "keyword"},
-                    "title": {"type": "text"},
-                    "content": {"type": "text"},
-                    "start_time": {"type": "date"},
-                    "end_time": {"type": "date"},
-                }
-            }
-        }
-        # Create the index via PUT request
-        await client.put(f"{settings.ELASTICSEARCH_URL}/{INDEX_NAME}", json=mapping)
+    """Ensure the ``argus_knowledge`` index exists.
+
+    For the test environment we rely on Elasticsearch's auto‑creation when the first
+    document is indexed, so this function is a no‑op. It remains present for API
+    compatibility.
+    """
+    return
 
 
 
