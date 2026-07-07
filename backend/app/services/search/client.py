@@ -124,10 +124,16 @@ async def index_document(es: AsyncElasticsearch, doc: Dict[str, Any]) -> None:
         vector = vector.tolist()
     else:
         vector = list(vector)
-    body = {**doc, "text_vector": vector}
+    # Include text_vector only if it has non‑zero magnitude
+    if any(v != 0 for v in vector):
+        body = {**doc, "text_vector": vector}
+    else:
+        body = doc
     # Index document via HTTP request directly
     async with httpx.AsyncClient() as client:
-        await client.post(f"{settings.ELASTICSEARCH_URL}/{INDEX_NAME}/_doc", json=body)
+        resp = await client.post(f"{settings.ELASTICSEARCH_URL}/{INDEX_NAME}/_doc", json=body)
+        if resp.status_code not in (200, 201):
+            raise RuntimeError(f"Failed to index document: {resp.status_code} {resp.text}")
 
 
 # ---------------------------------------------------------------------------

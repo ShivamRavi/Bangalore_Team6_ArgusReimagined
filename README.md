@@ -121,7 +121,24 @@ To enable hybrid search functionality:
 3. **Access the application**:
    - API: http://localhost:8000/
    - Swagger UI: http://localhost:8000/docs
-   - Frontend: http://localhost:8000/
+    - Frontend: http://localhost:8000/
+
+## Search Implementation Details
+
+- The **search endpoint** (`GET /api/v1/search`) now:
+  1. Guarantees the `argus_knowledge` index exists by calling `init_index`.
+  2. Executes a **BM25‑only** query via a direct `httpx` request to Elasticsearch, avoiding compatibility‑header issues.
+  3. Returns each hit’s `_source` together with its `_id`.
+
+- **Embedding handling** in `index_document`:
+  * Generates an embedding with `sentence‑transformers`.
+  * If the resulting vector is all zeros (e.g., empty content), the `text_vector` field is omitted to avoid Elasticsearch’s *zero‑magnitude* error with `cosine` similarity.
+  * Otherwise, the vector is stored alongside the document.
+
+- The original hybrid BM25 + k‑NN logic remains in the codebase for future activation but is disabled for stability.
+
+- When Elasticsearch is unavailable, the endpoint gracefully returns an empty `results` array instead of raising an exception, providing graceful degradation.
+
 
 ## Configuration
 
