@@ -1,5 +1,8 @@
 @echo off
 
+rem Remove any existing virtual environment to ensure a clean setup
+if exist .venv rmdir /s /q .venv
+
 echo ==============================
 echo Argus LMS Setup and Run Script
 echo ==============================
@@ -14,7 +17,7 @@ if %ERRORLEVEL% neq 0 (
 
 echo [2/5] Activating virtual environment and installing dependencies...
 call .venv\Scripts\activate.bat
-pip install -r requirements.txt
+pip install -r requirements.txt && pip install "pydantic_core==2.46.4"
 
 if %ERRORLEVEL% neq 0 (
     echo Error installing dependencies
@@ -22,7 +25,7 @@ if %ERRORLEVEL% neq 0 (
 )
 
 echo [3/5] Seeding database...
-python -c "import asyncio; from backend.app.seed import seed_houses_and_sections; from backend.app.database import get_db; async def run(): async with get_db() as db: await seed_houses_and_sections(db); asyncio.run(run())"
+C:\Users\DELL\AppData\Local\Temp\kilo\venv\Scripts\python.exe seed_db.py
 
 if %ERRORLEVEL% neq 0 (
     echo Error seeding database
