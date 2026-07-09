@@ -58,8 +58,7 @@ Students can search across the entire curriculum and pinpoint exact moments in l
 
 Every action—from a failed quiz to pausing a podcast—emits a real-time event.
 
-* **Active Tracking:** The system continuously updates the student's cognitive state and focus score, allowing the platform to dynamically adjust difficulty or trigger an AI intervention.
-
+* **Active Tracking:** =
 ---
 
 ## 🏗️ Technical Architecture
